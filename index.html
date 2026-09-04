@@ -161,7 +161,7 @@
   .marker {
     position: absolute;
     left: calc(var(--gutter) / 2.6);
-    top: clamp(64px, 9vw, 112px);
+    top: clamp(44px, 6vw, 76px);
     width: 30px;
     height: 30px;
     transform: translate(-50%, -6px);
@@ -188,7 +188,7 @@
   section {
     counter-increment: section;
     position: relative;
-    padding: clamp(64px, 9vw, 112px) 28px clamp(64px, 9vw, 112px) var(--gutter);
+    padding: clamp(44px, 6vw, 76px) 28px clamp(44px, 6vw, 76px) var(--gutter);
     border-bottom: 1px solid var(--border);
   }
 
@@ -310,40 +310,66 @@
   }
   .card .detail:last-of-type { margin-bottom: 28px; }
 
-  /* Selected Work tabs */
-  .tabs {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 28px;
-    row-gap: 10px;
-    margin: 0 0 32px;
-    border-bottom: 1px solid var(--border);
+  /* Selected Work card stack */
+  .work-stack {
+    display: grid;
+    margin: 0 0 8px;
   }
 
-  .tab {
-    font-family: var(--mono);
-    font-size: 0.8rem;
-    color: var(--text-faint);
-    background: none;
-    border: none;
-    padding: 0 0 14px;
-    margin: 0;
-    cursor: pointer;
+  .stack-card {
+    grid-column: 1;
+    grid-row: 1;
+    align-self: start;
+    transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.5s ease, box-shadow 0.5s ease;
+  }
+
+  .stack-card[data-state="front"] {
     position: relative;
-    letter-spacing: 0.02em;
+    z-index: 3;
+    transform: translate(0, 0) scale(1);
+    opacity: 1;
+    cursor: default;
+    box-shadow: 0 28px 56px -20px rgba(0, 0, 0, 0.6);
   }
-  .tab::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: -1px;
-    height: 2px;
-    background: transparent;
+  .stack-card[data-state="back1"] {
+    position: relative;
+    z-index: 2;
+    transform: translate(64px, -46px) scale(0.92);
+    opacity: 0.7;
+    background: var(--surface-2);
+    border-color: rgba(222, 226, 231, 0.16);
+    cursor: pointer;
   }
-  .tab:hover { color: var(--text-soft); }
-  .tab.active { color: var(--text); }
-  .tab.active::after { background: var(--accent); }
+  .stack-card[data-state="back2"] {
+    position: relative;
+    z-index: 1;
+    transform: translate(116px, -84px) scale(0.84);
+    opacity: 0.42;
+    background: var(--surface-2);
+    border-color: rgba(222, 226, 231, 0.1);
+    cursor: pointer;
+  }
+  .stack-card:not([data-state="front"]):hover { opacity: 0.92; }
+
+  .stack-card .stack-extra { display: none; }
+  .stack-card[data-state="front"] .stack-extra { display: block; }
+
+  .stack-card:not([data-state="front"]) .summary {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-bottom: 0;
+  }
+
+  .work-stack { padding-top: 60px; }
+
+  @media (max-width: 680px) {
+    .work-stack { padding-top: 34px; }
+    .stack-card[data-state="back1"] { transform: translate(26px, -20px) scale(0.94); }
+    .stack-card[data-state="back2"] { transform: translate(46px, -36px) scale(0.89); }
+  }
 
   /* Metric callouts */
   .metrics {
@@ -445,32 +471,32 @@
   }
 
   /* ---------- Education ---------- */
-  .edu-item { margin-bottom: 22px; }
-  .edu-item:last-child { margin-bottom: 0; }
-
-  .edu-item h3 {
-    font-family: var(--serif);
-    font-size: 1.15rem;
-    font-weight: 600;
-    letter-spacing: -0.005em;
-    margin: 0 0 4px;
-    color: var(--text);
+  .edu-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 16px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 1rem;
+    color: var(--text-soft);
   }
+  .edu-compact .edu-line:last-child { border-bottom: none; }
 
-  .edu-item .meta {
+  .edu-line .year {
     font-family: var(--mono);
-    font-size: 0.8rem;
+    font-size: 0.82rem;
     color: var(--text-faint);
-    margin: 0;
+    white-space: nowrap;
   }
 
   /* ---------- Footer ---------- */
   footer {
     max-width: var(--page-max);
     margin: 0 auto;
-    padding: 56px 28px 80px var(--gutter);
+    padding: 24px 28px 32px var(--gutter);
     font-family: var(--mono);
-    font-size: 0.8rem;
+    font-size: 0.78rem;
     color: var(--text-faint);
   }
 
@@ -520,7 +546,7 @@
 
 <header class="hero">
   <h1>Gowthamraj A</h1>
-  <p class="positioning">Product &amp; strategy professional with an engineering core — I diagnose problems, build the business case, and I still build and ship small products end to end myself.</p>
+  <p class="positioning">Product &amp; strategy professional focused on banking and fintech — I diagnose problems, build the business case, and still build and ship small products end to end myself.</p>
   <div class="contact-row">
     <span>Bengaluru, India</span>
     <span class="dot" aria-hidden="true">·</span>
@@ -543,8 +569,8 @@
     <div class="marker" aria-hidden="true"></div>
     <div class="inner">
       <h2>About</h2>
-      <p>I started as a software engineer, spent 30 months building a banking CRM platform for Citibank, and used that vantage point to move into product and strategy — first diagnosing an adoption problem that no one had named, then owning the fix end to end. That combination means I can sit with an engineering team and understand what's actually hard, and sit with a business stakeholder and quantify what a fix is worth. At small scale, that extends to actually building the thing — I still do, most recently an offline-first Android app I designed, built, and shipped solo for a construction labour crew that reads no English. That hands-on habit is what keeps my enterprise product judgment honest: I know what a scoping or sequencing call costs an engineering team because I've paid that cost myself, just at a smaller scale.</p>
-      <p>I'm now focused on product management and technical program management roles in BFSI and fintech, where the ability to move fluidly between engineering, business case, and delivery is the job, not a side skill.</p>
+      <p>At Wipro I spent 30 months building a CRM platform for Citibank, where I noticed that prospects were being tracked in Excel sheets upstream of the CRM, so records arrived already degraded. I proposed a standalone prospect management module, owned it from requirements through 15 production releases with a team of 10, and Citibank expanded the engagement — $1.56M in new account revenue. When relationship managers still avoided the module, I diagnosed the cause as a page loading 30,000 records in 20 seconds, redesigned it to load in pages, and took adoption from 60% to 85%.</p>
+      <p>I did an MBA at IIM Bangalore and cleared CFA Level I to build the financial depth that BFSI product work needs, and I still ship product myself — most recently Sambalam, a Tamil-language wage-tracking app I designed and shipped solo using AI coding tools, now used daily by a building contractor in Tamil Nadu. I'm looking for product roles in banking and fintech, where the domain knowledge, the financial grounding, and the ability to build all compound.</p>
     </div>
   </section>
 
@@ -579,7 +605,6 @@
           <ul>
             <li>Led cross-functional discovery to define 50+ KPIs; launched 7 Power BI dashboards on SAP/ERP data, adopted by 15+ plant managers and used as the reference implementation in an enterprise client pitch.</li>
             <li>Authored the product business case for Analytics-as-a-Service and purchase-order automation from vendor price analysis; surfaced ₹3.45Cr in procurement savings and identified a 5% lead-time breach rate.</li>
-            <li>Developed a time-series demand model across ₹46.7Cr of inventory to optimise safety-stock coverage; identified ₹3.1Cr in excess stock, enabling stakeholders to release ₹25L+ in working capital.</li>
           </ul>
         </div>
       </div>
@@ -607,114 +632,115 @@
     <div class="inner">
       <h2>Selected Work</h2>
 
-      <div class="tabs" role="tablist">
-        <button class="tab active" type="button" role="tab" aria-selected="true" data-target="card-sambalam">Sambalam</button>
-        <button class="tab" type="button" role="tab" aria-selected="false" data-target="card-citibank">Citibank CRM</button>
-        <button class="tab" type="button" role="tab" aria-selected="false" data-target="card-analytics">Analytics-as-a-Service</button>
-      </div>
+      <div class="work-stack">
+        <div class="card stack-card" id="card-sambalam" data-order="0" data-state="front" tabindex="0" role="button" aria-pressed="true">
+          <h3>Sambalam — construction labour wage tracker</h3>
+          <p class="summary">An offline-first Android app that replaced a paper notebook for weekly wage settlement on building sites.</p>
 
-      <div class="card" id="card-sambalam">
-        <h3>Sambalam — construction labour wage tracker</h3>
-        <p class="summary">An offline-first Android app that replaced a paper notebook for weekly wage settlement on building sites.</p>
+          <div class="stack-extra">
+            <div class="marquee">
+              <div class="marquee-track">
+                <div class="shot-frame"><img src="screenshots/sambalam-1.png" alt="Sambalam projects list screen" loading="lazy"></div>
+                <div class="shot-frame"><img src="screenshots/sambalam-2.png" alt="Sambalam Tamil/English language settings" loading="lazy"></div>
+                <div class="shot-frame"><img src="screenshots/sambalam-3.png" alt="Sambalam department setup screen" loading="lazy"></div>
+                <div class="shot-frame"><img src="screenshots/sambalam-4.png" alt="Sambalam weekly wage and advance view" loading="lazy"></div>
+                <div class="shot-frame"><img src="screenshots/sambalam-5.png" alt="Sambalam tap-based daily headcount entry" loading="lazy"></div>
+                <div class="shot-frame"><img src="screenshots/sambalam-6.png" alt="Sambalam weekly settlement summary" loading="lazy"></div>
+                <div class="shot-frame" aria-hidden="true"><img src="screenshots/sambalam-1.png" alt="" loading="lazy"></div>
+                <div class="shot-frame" aria-hidden="true"><img src="screenshots/sambalam-2.png" alt="" loading="lazy"></div>
+                <div class="shot-frame" aria-hidden="true"><img src="screenshots/sambalam-3.png" alt="" loading="lazy"></div>
+                <div class="shot-frame" aria-hidden="true"><img src="screenshots/sambalam-4.png" alt="" loading="lazy"></div>
+                <div class="shot-frame" aria-hidden="true"><img src="screenshots/sambalam-5.png" alt="" loading="lazy"></div>
+                <div class="shot-frame" aria-hidden="true"><img src="screenshots/sambalam-6.png" alt="" loading="lazy"></div>
+              </div>
+            </div>
 
-        <div class="marquee">
-          <div class="marquee-track">
-            <div class="shot-frame"><img src="screenshots/sambalam-1.png" alt="Sambalam projects list screen" loading="lazy"></div>
-            <div class="shot-frame"><img src="screenshots/sambalam-2.png" alt="Sambalam Tamil/English language settings" loading="lazy"></div>
-            <div class="shot-frame"><img src="screenshots/sambalam-3.png" alt="Sambalam department setup screen" loading="lazy"></div>
-            <div class="shot-frame"><img src="screenshots/sambalam-4.png" alt="Sambalam weekly wage and advance view" loading="lazy"></div>
-            <div class="shot-frame"><img src="screenshots/sambalam-5.png" alt="Sambalam tap-based daily headcount entry" loading="lazy"></div>
-            <div class="shot-frame"><img src="screenshots/sambalam-6.png" alt="Sambalam weekly settlement summary" loading="lazy"></div>
-            <div class="shot-frame" aria-hidden="true"><img src="screenshots/sambalam-1.png" alt="" loading="lazy"></div>
-            <div class="shot-frame" aria-hidden="true"><img src="screenshots/sambalam-2.png" alt="" loading="lazy"></div>
-            <div class="shot-frame" aria-hidden="true"><img src="screenshots/sambalam-3.png" alt="" loading="lazy"></div>
-            <div class="shot-frame" aria-hidden="true"><img src="screenshots/sambalam-4.png" alt="" loading="lazy"></div>
-            <div class="shot-frame" aria-hidden="true"><img src="screenshots/sambalam-5.png" alt="" loading="lazy"></div>
-            <div class="shot-frame" aria-hidden="true"><img src="screenshots/sambalam-6.png" alt="" loading="lazy"></div>
+            <p class="detail">A small-scale building contractor in Tamil Nadu recorded daily labour headcounts and weekly cash settlements by hand, where a miscalculation or a lost page meant paying the wrong amount to a crew. I ran discovery from the notebook itself, established that the underlying problem was outstanding balances rather than expense totals, and shipped a Tamil-first Android app with an English toggle across six sprints: tap-based daily headcount entry, automatic weekly settlement with advance deduction, and per-crew locking so a settled week cannot be altered retrospectively. One constraint drove every decision — the primary user reads no English and operates a smartphone at WhatsApp level — so daily entry requires no typing and a single tap copies the previous working day's crew composition. Built and shipped solo by directing an AI coding agent (Claude Code): I ran discovery, defined the domain model and every product decision, tested on device across six sprints, and distributed it as a direct-install APK with over-the-air updates.</p>
+
+            <div class="tags">
+              <span class="tag">Product discovery</span>
+              <span class="tag">User research</span>
+              <span class="tag">Domain modelling</span>
+              <span class="tag">Vernacular UX</span>
+              <span class="tag">AI-assisted development</span>
+              <span class="tag">Offline-first</span>
+              <span class="tag">Sole owner</span>
+            </div>
           </div>
         </div>
 
-        <p class="detail">A small-scale building contractor in Tamil Nadu recorded daily labour headcounts and weekly cash settlements by hand, where a miscalculation or a lost page meant paying the wrong amount to a crew. I ran discovery from the notebook itself, established that the underlying problem was outstanding balances rather than expense totals, and shipped a Tamil-first Android app with an English toggle across six sprints: tap-based daily headcount entry, automatic weekly settlement with advance deduction, and per-crew locking so a settled week cannot be altered retrospectively. One constraint drove every decision — the primary user reads no English and operates a smartphone at WhatsApp level — so daily entry requires no typing and a single tap copies the previous working day's crew composition. Built solo end to end: React Native and Expo, local SQLite with no backend so the app functions with no site connectivity, distributed as a direct-install APK with over-the-air updates for remote fixes.</p>
+        <div class="card stack-card" id="card-citibank" data-order="1" data-state="back1" tabindex="0" role="button" aria-pressed="false">
+          <h3>Prospect management module — Citibank CRM</h3>
+          <p class="summary">A module I proposed after finding the upstream gap, which contributed to a $1.56M account expansion.</p>
 
-        <div class="tags">
-          <span class="tag">Product discovery</span>
-          <span class="tag">User research</span>
-          <span class="tag">React Native</span>
-          <span class="tag">Expo</span>
-          <span class="tag">SQLite</span>
-          <span class="tag">Offline-first</span>
-          <span class="tag">Vernacular UX</span>
-          <span class="tag">Sole developer</span>
-        </div>
-      </div>
+          <div class="stack-extra">
+            <div class="metrics">
+              <div class="metric">
+                <div class="metric-figure"><span class="metric-value" data-count-to="1.56" data-decimals="2" data-prefix="$" data-suffix="M">$0.00M</span></div>
+                <p class="metric-caption">New account revenue</p>
+              </div>
+              <div class="metric">
+                <div class="metric-figure"><span class="from">40</span><span class="arrow">→</span><span class="metric-value" data-count-to="80" data-decimals="0">0</span></div>
+                <p class="metric-caption">Accounts per manager</p>
+              </div>
+              <div class="metric">
+                <div class="metric-figure"><span class="from">20s</span><span class="arrow">→</span><span class="metric-value" data-count-to="1" data-decimals="0" data-prefix="&lt;" data-suffix="s">&lt;0s</span></div>
+                <p class="metric-caption">Table load time</p>
+              </div>
+              <div class="metric">
+                <div class="metric-figure"><span class="from">60%</span><span class="arrow">→</span><span class="metric-value" data-count-to="85" data-decimals="0" data-suffix="%">0%</span></div>
+                <p class="metric-caption">Daily manager adoption</p>
+              </div>
+            </div>
 
-      <div class="card" id="card-citibank" hidden>
-        <h3>Prospect management module — Citibank CRM</h3>
-        <p class="summary">A module I proposed after finding the upstream gap, which contributed to a $1.56M account expansion.</p>
-
-        <div class="metrics">
-          <div class="metric">
-            <div class="metric-figure"><span class="metric-value" data-count-to="1.56" data-decimals="2" data-prefix="$" data-suffix="M">$0.00M</span></div>
-            <p class="metric-caption">New account revenue</p>
-          </div>
-          <div class="metric">
-            <div class="metric-figure"><span class="from">40</span><span class="arrow">→</span><span class="metric-value" data-count-to="80" data-decimals="0">0</span></div>
-            <p class="metric-caption">Accounts per manager</p>
-          </div>
-          <div class="metric">
-            <div class="metric-figure"><span class="from">20s</span><span class="arrow">→</span><span class="metric-value" data-count-to="1" data-decimals="0" data-prefix="&lt;" data-suffix="s">&lt;0s</span></div>
-            <p class="metric-caption">Table load time</p>
-          </div>
-          <div class="metric">
-            <div class="metric-figure"><span class="from">60%</span><span class="arrow">→</span><span class="metric-value" data-count-to="85" data-decimals="0" data-suffix="%">0%</span></div>
-            <p class="metric-caption">Daily manager adoption</p>
-          </div>
-        </div>
-
-        <p class="detail">While building a CRM platform for Citibank at Wipro, I found that prospects were being tracked in spreadsheets before they ever reached the CRM, so data quality was already degraded by the time records arrived. I proposed a standalone prospect management module that would feed the CRM on conversion, and owned it end to end from proposal through launch. Working with the client's US-based Product Owner, I defined the MVP, wrote the requirements, and shipped 15+ high-priority features with a team of 10. Relationship managers were avoiding the module because a single-page table loaded 30,000+ records at once, taking over 20 seconds — I diagnosed this as the primary adoption barrier and redesigned the table to load in pages, cutting load times to under a second and lifting daily usage from 60% to 85%. Stage-transition alerts across pipelines running 13 stages for institutional clients and 21 for HNI doubled portfolio capacity from 40 to 80 accounts per manager. The module's success contributed to Citibank expanding the engagement, worth $1.56M in new account revenue.</p>
-        <div class="tags">
-          <span class="tag">Product ownership</span>
-          <span class="tag">Requirements definition</span>
-          <span class="tag">MVP scoping</span>
-          <span class="tag">UX diagnosis</span>
-          <span class="tag">Stakeholder management</span>
-          <span class="tag">BFSI</span>
-          <span class="tag">CRM</span>
-        </div>
-      </div>
-
-      <div class="card" id="card-analytics" hidden>
-        <h3>Analytics-as-a-Service — manufacturing procurement</h3>
-        <p class="summary">Discovery, KPI definition, and a business case that surfaced ₹3.45Cr in procurement savings.</p>
-
-        <div class="metrics">
-          <div class="metric">
-            <div class="metric-figure"><span class="metric-value" data-count-to="3.45" data-decimals="2" data-prefix="₹" data-suffix="Cr">₹0.00Cr</span></div>
-            <p class="metric-caption">Procurement savings surfaced</p>
-          </div>
-          <div class="metric">
-            <div class="metric-figure"><span class="metric-value" data-count-to="3.1" data-decimals="1" data-prefix="₹" data-suffix="Cr">₹0.0Cr</span></div>
-            <p class="metric-caption">Excess inventory identified</p>
-          </div>
-          <div class="metric">
-            <div class="metric-figure"><span class="metric-value" data-count-to="25" data-decimals="0" data-prefix="₹" data-suffix="L+">₹0L+</span></div>
-            <p class="metric-caption">Working capital released</p>
-          </div>
-          <div class="metric">
-            <div class="metric-figure"><span class="metric-value" data-count-to="50" data-decimals="0" data-suffix="+">0+</span></div>
-            <p class="metric-caption">Operational KPIs defined</p>
+            <p class="detail">While building a CRM platform for Citibank at Wipro, I found that prospects were being tracked in spreadsheets before they ever reached the CRM, so data quality was already degraded by the time records arrived. I proposed a standalone prospect management module that would feed the CRM on conversion, and owned it end to end from proposal through launch. Working with the client's US-based Product Owner, I defined the MVP, wrote the requirements, and shipped 15+ high-priority features with a team of 10. Relationship managers were avoiding the module because a single-page table loaded 30,000+ records at once, taking over 20 seconds — I diagnosed this as the primary adoption barrier and redesigned the table to load in pages, cutting load times to under a second and lifting daily usage from 60% to 85%. Stage-transition alerts across pipelines running 13 stages for institutional clients and 21 for HNI doubled portfolio capacity from 40 to 80 accounts per manager. The module's success contributed to Citibank expanding the engagement, worth $1.56M in new account revenue.</p>
+            <div class="tags">
+              <span class="tag">Product ownership</span>
+              <span class="tag">Requirements definition</span>
+              <span class="tag">MVP scoping</span>
+              <span class="tag">UX diagnosis</span>
+              <span class="tag">Stakeholder management</span>
+              <span class="tag">BFSI</span>
+              <span class="tag">CRM</span>
+            </div>
           </div>
         </div>
 
-        <p class="detail">A manufacturing client had operational data spread across SAP and ERP systems with no consolidated view across plants. I ran discovery with finance, sourcing, and operations to establish what each function actually needed to see, defined 50+ operational KPIs, and built seven Power BI dashboards integrating the underlying data — later used as the reference implementation in an enterprise client pitch. Alongside the delivery, I authored the business case for an Analytics-as-a-Service offering and purchase-order automation, using vendor price analysis to surface ₹3.45Cr in procurement savings and a 5% lead-time breach rate, and modelled time-series demand across ₹46.7Cr of inventory to identify ₹3.1Cr in excess stock.</p>
-        <div class="tags">
-          <span class="tag">Stakeholder discovery</span>
-          <span class="tag">KPI definition</span>
-          <span class="tag">Business case</span>
-          <span class="tag">Power BI</span>
-          <span class="tag">SAP/ERP</span>
-          <span class="tag">Demand forecasting</span>
-          <span class="tag">Procurement analytics</span>
+        <div class="card stack-card" id="card-analytics" data-order="2" data-state="back2" tabindex="0" role="button" aria-pressed="false">
+          <h3>Analytics-as-a-Service — manufacturing procurement</h3>
+          <p class="summary">Discovery, KPI definition, and a business case that surfaced ₹3.45Cr in procurement savings.</p>
+
+          <div class="stack-extra">
+            <div class="metrics">
+              <div class="metric">
+                <div class="metric-figure"><span class="metric-value" data-count-to="3.45" data-decimals="2" data-prefix="₹" data-suffix="Cr">₹0.00Cr</span></div>
+                <p class="metric-caption">Procurement savings surfaced</p>
+              </div>
+              <div class="metric">
+                <div class="metric-figure"><span class="metric-value" data-count-to="3.1" data-decimals="1" data-prefix="₹" data-suffix="Cr">₹0.0Cr</span></div>
+                <p class="metric-caption">Excess inventory identified</p>
+              </div>
+              <div class="metric">
+                <div class="metric-figure"><span class="metric-value" data-count-to="25" data-decimals="0" data-prefix="₹" data-suffix="L+">₹0L+</span></div>
+                <p class="metric-caption">Working capital released</p>
+              </div>
+              <div class="metric">
+                <div class="metric-figure"><span class="metric-value" data-count-to="50" data-decimals="0" data-suffix="+">0+</span></div>
+                <p class="metric-caption">Operational KPIs defined</p>
+              </div>
+            </div>
+
+            <p class="detail">A manufacturing client had operational data spread across SAP and ERP systems with no consolidated view across plants. I ran discovery with finance, sourcing, and operations to establish what each function actually needed to see, defined 50+ operational KPIs, and built seven Power BI dashboards integrating the underlying data — later used as the reference implementation in an enterprise client pitch. Alongside the delivery, I authored the business case for an Analytics-as-a-Service offering and purchase-order automation, using vendor price analysis to surface ₹3.45Cr in procurement savings and a 5% lead-time breach rate, and modelled time-series demand across ₹46.7Cr of inventory to identify ₹3.1Cr in excess stock.</p>
+            <div class="tags">
+              <span class="tag">Stakeholder discovery</span>
+              <span class="tag">KPI definition</span>
+              <span class="tag">Business case</span>
+              <span class="tag">Power BI</span>
+              <span class="tag">SAP/ERP</span>
+              <span class="tag">Demand forecasting</span>
+              <span class="tag">Procurement analytics</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -726,54 +752,45 @@
       <h2>Skills</h2>
 
       <div class="skill-group">
-        <h4>Product</h4>
+        <h4>Product &amp; Delivery</h4>
         <div class="pills">
-          <span class="pill">Product discovery</span>
-          <span class="pill">MVP scoping</span>
           <span class="pill">Requirements definition</span>
-          <span class="pill">Roadmapping</span>
+          <span class="pill">PRDs &amp; user stories</span>
+          <span class="pill">MVP scoping</span>
+          <span class="pill">MoSCoW prioritisation</span>
+          <span class="pill">Backlog management</span>
+          <span class="pill">Release management</span>
           <span class="pill">UX diagnosis</span>
           <span class="pill">Stakeholder management</span>
+          <span class="pill">Agile/Scrum</span>
         </div>
       </div>
 
       <div class="skill-group">
-        <h4>Delivery</h4>
-        <div class="pills">
-          <span class="pill">Agile / Scrum</span>
-          <span class="pill">Cross-functional team leadership</span>
-          <span class="pill">Vendor &amp; client coordination</span>
-          <span class="pill">Program delivery</span>
-        </div>
-      </div>
-
-      <div class="skill-group">
-        <h4>Technical</h4>
-        <div class="pills">
-          <span class="pill">React Native</span>
-          <span class="pill">SQL</span>
-          <span class="pill">System design</span>
-          <span class="pill">API integration</span>
-          <span class="pill">SDLC</span>
-        </div>
-      </div>
-
-      <div class="skill-group">
-        <h4>Data</h4>
+        <h4>Data &amp; Analysis</h4>
         <div class="pills">
           <span class="pill">Power BI</span>
-          <span class="pill">Financial modelling</span>
-          <span class="pill">KPI design</span>
+          <span class="pill">SAP/ERP data</span>
+          <span class="pill">KPI definition</span>
+          <span class="pill">Business case development</span>
           <span class="pill">Demand forecasting</span>
+          <span class="pill">SQL</span>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <h4>AI</h4>
+        <div class="pills">
+          <span class="pill">Azure AI Foundry</span>
+          <span class="pill">AI-assisted development (Claude Code)</span>
+          <span class="pill">Power Automate</span>
         </div>
       </div>
 
       <div class="skill-group">
         <h4>Domain</h4>
         <div class="pills">
-          <span class="pill">BFSI</span>
-          <span class="pill">Fintech</span>
-          <span class="pill">CRM platforms</span>
+          <span class="pill">BFSI &amp; CRM platforms</span>
           <span class="pill">Procurement &amp; supply chain</span>
         </div>
       </div>
@@ -785,19 +802,10 @@
     <div class="inner">
       <h2>Education &amp; Certifications</h2>
 
-      <div class="edu-item">
-        <h3>MBA, Indian Institute of Management Bangalore</h3>
-        <p class="meta">2026</p>
-      </div>
-
-      <div class="edu-item">
-        <h3>BE, Computer Science — CEG, Anna University</h3>
-        <p class="meta">2021</p>
-      </div>
-
-      <div class="edu-item">
-        <h3>CFA Level I Cleared</h3>
-        <p class="meta">2025</p>
+      <div class="edu-compact">
+        <div class="edu-line"><span>MBA, Indian Institute of Management Bangalore</span><span class="year">2026</span></div>
+        <div class="edu-line"><span>BE, Computer Science — CEG, Anna University</span><span class="year">2021</span></div>
+        <div class="edu-line"><span>CFA Level I Cleared</span><span class="year">2025</span></div>
       </div>
     </div>
   </section>
@@ -902,24 +910,42 @@
       counters.forEach(function (el) { co.observe(el); });
     }
 
-    /* Selected Work tabs */
-    var tabs = document.querySelectorAll('.tab');
-    tabs.forEach(function (tab) {
-      tab.addEventListener('click', function () {
-        tabs.forEach(function (t) {
-          t.classList.remove('active');
-          t.setAttribute('aria-selected', 'false');
-        });
-        tab.classList.add('active');
-        tab.setAttribute('aria-selected', 'true');
-
-        document.querySelectorAll('.work .card').forEach(function (card) { card.hidden = true; });
-        var target = document.getElementById(tab.getAttribute('data-target'));
-        if (target) {
-          target.hidden = false;
-          target.querySelectorAll('[data-count-to]').forEach(function (el) { markAndRun(el); });
-        }
+    /* Selected Work card stack */
+    var stack = document.querySelector('.work-stack');
+    if (stack) {
+      var stackCards = Array.prototype.slice.call(stack.querySelectorAll('.stack-card'));
+      var order = stackCards.slice().sort(function (a, b) {
+        return parseInt(a.getAttribute('data-order'), 10) - parseInt(b.getAttribute('data-order'), 10);
       });
-    });
+      var states = ['front', 'back1', 'back2'];
+
+      function applyOrder() {
+        order.forEach(function (card, i) {
+          card.setAttribute('data-state', states[i]);
+          card.setAttribute('aria-pressed', i === 0 ? 'true' : 'false');
+          if (i === 0) {
+            card.querySelectorAll('[data-count-to]').forEach(function (el) { markAndRun(el); });
+          }
+        });
+      }
+
+      function bringToFront(card) {
+        if (order[0] === card) return;
+        order = [card].concat(order.filter(function (c) { return c !== card; }));
+        applyOrder();
+      }
+
+      stackCards.forEach(function (card) {
+        card.addEventListener('click', function () { bringToFront(card); });
+        card.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            bringToFront(card);
+          }
+        });
+      });
+
+      applyOrder();
+    }
   })();
 </script>
