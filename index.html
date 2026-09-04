@@ -274,102 +274,108 @@
   .role-content ul li:last-child { margin-bottom: 0; }
   .role-content ul li::marker { color: var(--accent); }
 
-  /* ---------- Work cards ---------- */
-  .card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: clamp(28px, 4vw, 44px);
-    margin-bottom: 28px;
-  }
-  .card:last-child { margin-bottom: 0; }
+  /* ---------- Selected Work split panel ---------- */
+  .work-split { position: relative; }
+  .work-item { display: contents; }
 
-  .card h3 {
+  .rail-header {
+    display: block;
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: none;
+    border-left: 2px solid transparent;
+    padding: 16px 0 16px 16px;
+    margin: 0;
+    cursor: pointer;
+    font-family: inherit;
+    color: inherit;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+  }
+  .rail-header h4 {
     font-family: var(--serif);
-    font-size: 1.4rem;
+    font-size: 1.05rem;
     font-weight: 600;
-    letter-spacing: -0.005em;
-    margin: 0 0 12px;
-    color: var(--text);
+    color: var(--text-faint);
+    margin: 0 0 6px;
+    line-height: 1.35;
+    transition: color 0.25s ease;
   }
-
-  .card .summary {
+  .rail-header p {
     font-family: var(--serif);
-    font-size: 1.1rem;
-    font-style: italic;
-    color: var(--text-soft);
-    line-height: 1.6;
-    margin: 0 0 24px;
+    font-size: 0.88rem;
+    color: var(--text-faint);
+    opacity: 0.75;
+    margin: 0;
+    line-height: 1.5;
+    transition: color 0.25s ease, opacity 0.25s ease;
   }
+  .rail-header.active { border-left-color: var(--accent); }
+  .rail-header.active h4 { color: var(--text); }
+  .rail-header.active p { color: var(--text-soft); opacity: 1; }
+  .rail-header:not(.active):hover { transform: translateX(4px); }
+  .rail-header:not(.active):hover h4 { color: var(--text-soft); }
+  .rail-header:not(.active):hover p { opacity: 0.95; }
 
-  .card .detail {
-    font-size: 1rem;
-    color: var(--text-soft);
-    line-height: 1.8;
-    margin: 0 0 28px;
-  }
-  .card .detail:last-of-type { margin-bottom: 28px; }
+  .rail-marker { display: none; }
 
-  /* Selected Work card stack */
-  .work-stack {
-    display: grid;
-    margin: 0 0 8px;
-  }
-
-  .stack-card {
-    grid-column: 1;
-    grid-row: 1;
-    align-self: start;
-    transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.5s ease, box-shadow 0.5s ease;
-  }
-
-  .stack-card[data-state="front"] {
+  .panel-content {
     position: relative;
-    z-index: 3;
-    transform: translate(0, 0) scale(1);
-    opacity: 1;
-    cursor: default;
-    box-shadow: 0 28px 56px -20px rgba(0, 0, 0, 0.6);
-  }
-  .stack-card[data-state="back1"] {
-    position: relative;
-    z-index: 2;
-    transform: translate(64px, -46px) scale(0.92);
-    opacity: 0.7;
-    background: var(--surface-2);
-    border-color: rgba(222, 226, 231, 0.16);
-    cursor: pointer;
-  }
-  .stack-card[data-state="back2"] {
-    position: relative;
-    z-index: 1;
-    transform: translate(116px, -84px) scale(0.84);
-    opacity: 0.42;
-    background: var(--surface-2);
-    border-color: rgba(222, 226, 231, 0.1);
-    cursor: pointer;
-  }
-  .stack-card:not([data-state="front"]):hover { opacity: 0.92; }
-
-  .stack-card .stack-extra { display: none; }
-  .stack-card[data-state="front"] .stack-extra { display: block; }
-
-  .stack-card:not([data-state="front"]) .summary {
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
-    line-clamp: 1;
-    -webkit-box-orient: vertical;
+    max-height: 0;
     overflow: hidden;
-    margin-bottom: 0;
+    opacity: 1;
+    pointer-events: auto;
+    margin: 0 0 8px 16px;
+    transition: max-height 0.4s ease;
+  }
+  .panel-content.active { max-height: 3200px; }
+
+  @media (min-width: 781px) {
+    .work-split { display: grid; grid-template-columns: 30% 1fr; column-gap: 56px; align-content: start; }
+    .rail-header { grid-column: 1; border-left: none; padding: 18px 24px 18px 22px; align-self: start; }
+    .rail-marker {
+      display: block;
+      grid-column: 1;
+      grid-row: 1;
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 2px;
+      background: var(--accent);
+      border-radius: 1px;
+    }
+    .panel-content {
+      grid-column: 2;
+      grid-row: 1;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      max-height: none;
+      overflow: visible;
+      margin: 0;
+      opacity: 0;
+      pointer-events: none;
+      padding: clamp(28px, 4vw, 44px);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      transition: none;
+    }
+    .panel-content.active { opacity: 1; pointer-events: auto; }
   }
 
-  .work-stack { padding-top: 60px; }
+  .detail { font-size: 1rem; color: var(--text-soft); line-height: 1.8; margin: 0 0 28px; }
+  .panel-content .tags { margin: 0 0 28px; }
 
-  @media (max-width: 680px) {
-    .work-stack { padding-top: 34px; }
-    .stack-card[data-state="back1"] { transform: translate(26px, -20px) scale(0.94); }
-    .stack-card[data-state="back2"] { transform: translate(46px, -36px) scale(0.89); }
+  .panel-content > .detail,
+  .panel-content > .metrics,
+  .panel-content > .tags,
+  .panel-content > .marquee {
+    opacity: 1;
+    transform: translateY(0);
   }
+  .panel-content .tags .tag { opacity: 1; transform: translateY(0); }
 
   /* Metric callouts */
   .metrics {
@@ -424,7 +430,7 @@
   /* Screenshot marquee */
   .marquee {
     overflow: hidden;
-    margin: 0 0 28px;
+    margin: 0 0 4px;
     -webkit-mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent);
     mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent);
   }
@@ -514,6 +520,7 @@
     .marquee-track { animation: none !important; }
     .marquee { overflow-x: auto; -webkit-overflow-scrolling: touch; }
     .marquee-track .shot-frame:nth-child(n+7) { display: none; }
+    .rail-header, .rail-header h4, .rail-header p, .rail-marker, .panel-content { transition: none !important; }
   }
 
   /* ---------- Print ---------- */
@@ -534,7 +541,18 @@
     header.hero { min-height: auto; padding: 24px 0; }
     .scroll-cue, .spine, .spine-fill, .marker { display: none !important; }
     section { border-bottom: 1px solid #ddd; padding: 20px 0 !important; }
-    .card { border: 1px solid #ccc; }
+    .work-split { display: block !important; }
+    .rail-marker { display: none !important; }
+    .rail-header { border-left: none; padding: 12px 0 4px; }
+    .panel-content {
+      position: static !important;
+      opacity: 1 !important;
+      max-height: none !important;
+      overflow: visible !important;
+      margin: 0 0 24px 16px !important;
+      border: 1px solid #ccc;
+      padding: 16px;
+    }
     .marquee { overflow: visible; mask-image: none; -webkit-mask-image: none; }
     .marquee-track { animation: none !important; transform: none !important; flex-wrap: wrap; }
     .marquee-track .shot-frame:nth-child(n+7) { display: none; }
@@ -632,12 +650,25 @@
     <div class="inner">
       <h2>Selected Work</h2>
 
-      <div class="work-stack">
-        <div class="card stack-card" id="card-sambalam" data-order="0" data-state="front" tabindex="0" role="button" aria-pressed="true">
-          <h3>Sambalam — construction labour wage tracker</h3>
-          <p class="summary">An offline-first Android app that replaced a paper notebook for weekly wage settlement on building sites.</p>
+      <div class="work-split" role="tablist">
+        <div class="rail-marker" aria-hidden="true"></div>
 
-          <div class="stack-extra">
+        <div class="work-item">
+          <button class="rail-header active" type="button" role="tab" aria-selected="true" aria-controls="panel-sambalam" id="tab-sambalam" data-target="sambalam">
+            <h4>Sambalam — construction labour wage tracker</h4>
+            <p>An offline-first Android app that replaced a paper notebook for weekly wage settlement on building sites.</p>
+          </button>
+          <div class="panel-content active" id="panel-sambalam" data-panel="sambalam" role="tabpanel" aria-labelledby="tab-sambalam">
+            <p class="detail">A small-scale building contractor in Tamil Nadu recorded daily labour headcounts and weekly cash settlements by hand, where a miscalculation or a lost page meant paying the wrong amount to a crew. I ran discovery from the notebook itself, established that the underlying problem was outstanding balances rather than expense totals, and shipped a Tamil-first Android app with an English toggle across six sprints: tap-based daily headcount entry, automatic weekly settlement with advance deduction, and per-crew locking so a settled week cannot be altered retrospectively. One constraint drove every decision — the primary user reads no English and operates a smartphone at WhatsApp level — so daily entry requires no typing and a single tap copies the previous working day's crew composition. Built and shipped solo by directing an AI coding agent (Claude Code): I ran discovery, defined the domain model and every product decision, tested on device across six sprints, and distributed it as a direct-install APK with over-the-air updates.</p>
+            <div class="tags">
+              <span class="tag">Product discovery</span>
+              <span class="tag">User research</span>
+              <span class="tag">Domain modelling</span>
+              <span class="tag">Vernacular UX</span>
+              <span class="tag">AI-assisted development</span>
+              <span class="tag">Offline-first</span>
+              <span class="tag">Sole owner</span>
+            </div>
             <div class="marquee">
               <div class="marquee-track">
                 <div class="shot-frame"><img src="screenshots/sambalam-1.png" alt="Sambalam projects list screen" loading="lazy"></div>
@@ -654,26 +685,16 @@
                 <div class="shot-frame" aria-hidden="true"><img src="screenshots/sambalam-6.png" alt="" loading="lazy"></div>
               </div>
             </div>
-
-            <p class="detail">A small-scale building contractor in Tamil Nadu recorded daily labour headcounts and weekly cash settlements by hand, where a miscalculation or a lost page meant paying the wrong amount to a crew. I ran discovery from the notebook itself, established that the underlying problem was outstanding balances rather than expense totals, and shipped a Tamil-first Android app with an English toggle across six sprints: tap-based daily headcount entry, automatic weekly settlement with advance deduction, and per-crew locking so a settled week cannot be altered retrospectively. One constraint drove every decision — the primary user reads no English and operates a smartphone at WhatsApp level — so daily entry requires no typing and a single tap copies the previous working day's crew composition. Built and shipped solo by directing an AI coding agent (Claude Code): I ran discovery, defined the domain model and every product decision, tested on device across six sprints, and distributed it as a direct-install APK with over-the-air updates.</p>
-
-            <div class="tags">
-              <span class="tag">Product discovery</span>
-              <span class="tag">User research</span>
-              <span class="tag">Domain modelling</span>
-              <span class="tag">Vernacular UX</span>
-              <span class="tag">AI-assisted development</span>
-              <span class="tag">Offline-first</span>
-              <span class="tag">Sole owner</span>
-            </div>
           </div>
         </div>
 
-        <div class="card stack-card" id="card-citibank" data-order="1" data-state="back1" tabindex="0" role="button" aria-pressed="false">
-          <h3>Prospect management module — Citibank CRM</h3>
-          <p class="summary">A module I proposed after finding the upstream gap, which contributed to a $1.56M account expansion.</p>
-
-          <div class="stack-extra">
+        <div class="work-item">
+          <button class="rail-header" type="button" role="tab" aria-selected="false" aria-controls="panel-citibank" id="tab-citibank" data-target="citibank">
+            <h4>Prospect management module — Citibank CRM</h4>
+            <p>A module I proposed after finding the upstream gap, which contributed to a $1.56M account expansion.</p>
+          </button>
+          <div class="panel-content" id="panel-citibank" data-panel="citibank" role="tabpanel" aria-labelledby="tab-citibank">
+            <p class="detail">While building a CRM platform for Citibank at Wipro, I found that prospects were being tracked in spreadsheets before they ever reached the CRM, so data quality was already degraded by the time records arrived. I proposed a standalone prospect management module that would feed the CRM on conversion, and owned it end to end from proposal through launch. Working with the client's US-based Product Owner, I defined the MVP, wrote the requirements, and shipped 15+ high-priority features with a team of 10. Relationship managers were avoiding the module because a single-page table loaded 30,000+ records at once, taking over 20 seconds — I diagnosed this as the primary adoption barrier and redesigned the table to load in pages, cutting load times to under a second and lifting daily usage from 60% to 85%. Stage-transition alerts across pipelines running 13 stages for institutional clients and 21 for HNI doubled portfolio capacity from 40 to 80 accounts per manager. The module's success contributed to Citibank expanding the engagement, worth $1.56M in new account revenue.</p>
             <div class="metrics">
               <div class="metric">
                 <div class="metric-figure"><span class="metric-value" data-count-to="1.56" data-decimals="2" data-prefix="$" data-suffix="M">$0.00M</span></div>
@@ -692,8 +713,6 @@
                 <p class="metric-caption">Daily manager adoption</p>
               </div>
             </div>
-
-            <p class="detail">While building a CRM platform for Citibank at Wipro, I found that prospects were being tracked in spreadsheets before they ever reached the CRM, so data quality was already degraded by the time records arrived. I proposed a standalone prospect management module that would feed the CRM on conversion, and owned it end to end from proposal through launch. Working with the client's US-based Product Owner, I defined the MVP, wrote the requirements, and shipped 15+ high-priority features with a team of 10. Relationship managers were avoiding the module because a single-page table loaded 30,000+ records at once, taking over 20 seconds — I diagnosed this as the primary adoption barrier and redesigned the table to load in pages, cutting load times to under a second and lifting daily usage from 60% to 85%. Stage-transition alerts across pipelines running 13 stages for institutional clients and 21 for HNI doubled portfolio capacity from 40 to 80 accounts per manager. The module's success contributed to Citibank expanding the engagement, worth $1.56M in new account revenue.</p>
             <div class="tags">
               <span class="tag">Product ownership</span>
               <span class="tag">Requirements definition</span>
@@ -706,11 +725,13 @@
           </div>
         </div>
 
-        <div class="card stack-card" id="card-analytics" data-order="2" data-state="back2" tabindex="0" role="button" aria-pressed="false">
-          <h3>Analytics-as-a-Service — manufacturing procurement</h3>
-          <p class="summary">Discovery, KPI definition, and a business case that surfaced ₹3.45Cr in procurement savings.</p>
-
-          <div class="stack-extra">
+        <div class="work-item">
+          <button class="rail-header" type="button" role="tab" aria-selected="false" aria-controls="panel-analytics" id="tab-analytics" data-target="analytics">
+            <h4>Analytics-as-a-Service — manufacturing procurement</h4>
+            <p>Discovery, KPI definition, and a business case that surfaced ₹3.45Cr in procurement savings.</p>
+          </button>
+          <div class="panel-content" id="panel-analytics" data-panel="analytics" role="tabpanel" aria-labelledby="tab-analytics">
+            <p class="detail">A manufacturing client had operational data spread across SAP and ERP systems with no consolidated view across plants. I ran discovery with finance, sourcing, and operations to establish what each function actually needed to see, defined 50+ operational KPIs, and built seven Power BI dashboards integrating the underlying data — later used as the reference implementation in an enterprise client pitch. Alongside the delivery, I authored the business case for an Analytics-as-a-Service offering and purchase-order automation, using vendor price analysis to surface ₹3.45Cr in procurement savings and a 5% lead-time breach rate, and modelled time-series demand across ₹46.7Cr of inventory to identify ₹3.1Cr in excess stock.</p>
             <div class="metrics">
               <div class="metric">
                 <div class="metric-figure"><span class="metric-value" data-count-to="3.45" data-decimals="2" data-prefix="₹" data-suffix="Cr">₹0.00Cr</span></div>
@@ -729,8 +750,6 @@
                 <p class="metric-caption">Operational KPIs defined</p>
               </div>
             </div>
-
-            <p class="detail">A manufacturing client had operational data spread across SAP and ERP systems with no consolidated view across plants. I ran discovery with finance, sourcing, and operations to establish what each function actually needed to see, defined 50+ operational KPIs, and built seven Power BI dashboards integrating the underlying data — later used as the reference implementation in an enterprise client pitch. Alongside the delivery, I authored the business case for an Analytics-as-a-Service offering and purchase-order automation, using vendor price analysis to surface ₹3.45Cr in procurement savings and a 5% lead-time breach rate, and modelled time-series demand across ₹46.7Cr of inventory to identify ₹3.1Cr in excess stock.</p>
             <div class="tags">
               <span class="tag">Stakeholder discovery</span>
               <span class="tag">KPI definition</span>
@@ -890,62 +909,129 @@
       }
       window.requestAnimationFrame(step);
     }
-    function markAndRun(el) {
-      if (el.dataset.counted) return;
-      el.dataset.counted = '1';
-      runCount(el);
-    }
-    var counters = document.querySelectorAll('[data-count-to]');
-    if (reduceMotion || !('IntersectionObserver' in window)) {
-      counters.forEach(function (el) { markAndRun(el); });
-    } else {
-      var co = new IntersectionObserver(function (entries) {
-        entries.forEach(function (entry) {
-          if (entry.isIntersecting) {
-            markAndRun(entry.target);
-            co.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.6 });
-      counters.forEach(function (el) { co.observe(el); });
-    }
+    /* Selected Work split panel */
+    var workSplit = document.querySelector('.work-split');
+    if (workSplit) {
+      var railHeaders = Array.prototype.slice.call(workSplit.querySelectorAll('.rail-header'));
+      var panels = Array.prototype.slice.call(workSplit.querySelectorAll('.panel-content'));
+      var marker = workSplit.querySelector('.rail-marker');
+      var currentId = 'sambalam';
+      var isDesktop = function () { return window.matchMedia('(min-width: 781px)').matches; };
 
-    /* Selected Work card stack */
-    var stack = document.querySelector('.work-stack');
-    if (stack) {
-      var stackCards = Array.prototype.slice.call(stack.querySelectorAll('.stack-card'));
-      var order = stackCards.slice().sort(function (a, b) {
-        return parseInt(a.getAttribute('data-order'), 10) - parseInt(b.getAttribute('data-order'), 10);
-      });
-      var states = ['front', 'back1', 'back2'];
-
-      function applyOrder() {
-        order.forEach(function (card, i) {
-          card.setAttribute('data-state', states[i]);
-          card.setAttribute('aria-pressed', i === 0 ? 'true' : 'false');
-          if (i === 0) {
-            card.querySelectorAll('[data-count-to]').forEach(function (el) { markAndRun(el); });
-          }
-        });
+      function moveMarker(headerEl, animate) {
+        if (!marker || !headerEl) return;
+        if (!animate) {
+          marker.style.transition = 'none';
+          marker.style.transform = 'translateY(' + headerEl.offsetTop + 'px)';
+          marker.style.height = headerEl.offsetHeight + 'px';
+          void marker.offsetWidth;
+          marker.style.transition = 'transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), height 0.3s ease';
+        } else {
+          marker.style.transition = 'transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), height 0.3s ease';
+          marker.style.transform = 'translateY(' + headerEl.offsetTop + 'px)';
+          marker.style.height = headerEl.offsetHeight + 'px';
+        }
       }
 
-      function bringToFront(card) {
-        if (order[0] === card) return;
-        order = [card].concat(order.filter(function (c) { return c !== card; }));
-        applyOrder();
+      function primeHidden(el) {
+        el.style.transition = 'none';
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(14px)';
+      }
+      function revealBlock(el, delayMs) {
+        el.style.transition = 'opacity 0.45s ease ' + delayMs + 'ms, transform 0.45s ease ' + delayMs + 'ms';
+        el.style.opacity = '';
+        el.style.transform = '';
       }
 
-      stackCards.forEach(function (card) {
-        card.addEventListener('click', function () { bringToFront(card); });
-        card.addEventListener('keydown', function (e) {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            bringToFront(card);
-          }
+      function activate(id) {
+        if (id === currentId) return;
+        var newHeader = workSplit.querySelector('.rail-header[data-target="' + id + '"]');
+        var oldPanel = workSplit.querySelector('.panel-content[data-panel="' + currentId + '"]');
+        var newPanel = workSplit.querySelector('.panel-content[data-panel="' + id + '"]');
+        if (!newHeader || !newPanel) return;
+
+        railHeaders.forEach(function (h) {
+          h.classList.remove('active');
+          h.setAttribute('aria-selected', 'false');
         });
+        newHeader.classList.add('active');
+        newHeader.setAttribute('aria-selected', 'true');
+
+        if (isDesktop()) { moveMarker(newHeader, !reduceMotion); }
+
+        if (reduceMotion) {
+          panels.forEach(function (p) { p.classList.remove('active'); });
+          newPanel.classList.add('active');
+          newPanel.querySelectorAll('[data-count-to]').forEach(function (el) { runCount(el); });
+          currentId = id;
+          return;
+        }
+
+        if (isDesktop()) {
+          if (oldPanel && oldPanel !== newPanel) {
+            oldPanel.classList.remove('active');
+            oldPanel.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+            oldPanel.style.opacity = '0';
+            oldPanel.style.transform = 'translateY(-14px)';
+            window.setTimeout(function () {
+              oldPanel.style.transition = '';
+              oldPanel.style.opacity = '';
+              oldPanel.style.transform = '';
+            }, 320);
+          }
+
+          newPanel.classList.add('active');
+          var blocks = Array.prototype.slice.call(newPanel.children);
+          blocks.forEach(function (block) {
+            primeHidden(block);
+            if (block.classList.contains('tags')) {
+              Array.prototype.forEach.call(block.children, function (tag) { primeHidden(tag); });
+            }
+          });
+          void newPanel.offsetWidth;
+          blocks.forEach(function (block, i) {
+            var delay = i * 60;
+            revealBlock(block, delay);
+            if (block.classList.contains('tags')) {
+              Array.prototype.forEach.call(block.children, function (tag, ti) {
+                revealBlock(tag, delay + ti * 40);
+              });
+            }
+          });
+
+          newPanel.querySelectorAll('[data-count-to]').forEach(function (el) { runCount(el); });
+        } else {
+          panels.forEach(function (p) { p.classList.remove('active'); });
+          newPanel.classList.add('active');
+          newPanel.querySelectorAll('[data-count-to]').forEach(function (el) { runCount(el); });
+        }
+
+        currentId = id;
+      }
+
+      railHeaders.forEach(function (header) {
+        header.addEventListener('click', function () { activate(header.getAttribute('data-target')); });
       });
 
-      applyOrder();
+      function syncHeight() {
+        if (!isDesktop()) { workSplit.style.minHeight = ''; return; }
+        var tallest = 0;
+        panels.forEach(function (p) { tallest = Math.max(tallest, p.offsetHeight); });
+        var railHeight = 0;
+        railHeaders.forEach(function (h) { railHeight += h.offsetHeight; });
+        workSplit.style.minHeight = Math.max(tallest, railHeight) + 'px';
+      }
+
+      var initialHeader = workSplit.querySelector('.rail-header[data-target="sambalam"]');
+      if (isDesktop() && initialHeader) { moveMarker(initialHeader, false); }
+      syncHeight();
+
+      window.addEventListener('resize', function () {
+        var activeHeader = workSplit.querySelector('.rail-header.active');
+        if (isDesktop() && activeHeader) { moveMarker(activeHeader, false); }
+        syncHeight();
+      });
     }
   })();
 </script>
