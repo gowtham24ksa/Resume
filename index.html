@@ -1,0 +1,501 @@
+<title>Gowthamraj A — Resume</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Gowthamraj A — Product &amp; Strategy professional. IIM Bangalore MBA, ex-software developer, targeting Product Management and Technical Program Management roles in BFSI and fintech.">
+
+<meta property="og:title" content="Gowthamraj A — Product &amp; Strategy">
+<meta property="og:description" content="IIM Bangalore MBA · 30 months building banking CRM at Wipro · Associate at PwC India. Product and business judgment, backed by engineering depth.">
+<meta property="og:image" content="og-preview.png">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+
+<style>
+  :root {
+    --ink: #1a1d21;
+    --ink-soft: #52585f;
+    --ink-faint: #8a9099;
+    --line: #e4e6e9;
+    --paper: #ffffff;
+    --panel: #f7f8f9;
+    --accent: #0a5c4a;
+    --accent-soft: #e7f2ef;
+    --max: 800px;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: var(--ink);
+    background: var(--paper);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  .wrap {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* ---------- Header ---------- */
+  header.hero {
+    padding: 64px 0 40px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  header.hero h1 {
+    font-size: 2.1rem;
+    margin: 0 0 8px;
+    letter-spacing: -0.02em;
+  }
+
+  .positioning {
+    font-size: 1.1rem;
+    color: var(--ink-soft);
+    margin: 0 0 20px;
+    max-width: 60ch;
+  }
+
+  .contact-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 16px;
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+    margin-bottom: 22px;
+  }
+
+  .contact-row span, .contact-row a { color: var(--ink-soft); }
+  .contact-row a:hover { color: var(--accent); }
+
+  .cv-btn {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-size: 0.92rem;
+    font-weight: 600;
+  }
+  .cv-btn:hover { background: #084a3c; text-decoration: none; }
+
+  /* ---------- Sections ---------- */
+  section {
+    padding: 44px 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  section:last-of-type { border-bottom: none; }
+
+  h2 {
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    color: var(--accent);
+    margin: 0 0 24px;
+  }
+
+  section.about p {
+    margin: 0 0 16px;
+    color: var(--ink-soft);
+    max-width: 68ch;
+  }
+  section.about p:last-child { margin-bottom: 0; }
+
+  /* ---------- Experience ---------- */
+  .role { margin-bottom: 34px; }
+  .role:last-child { margin-bottom: 0; }
+
+  .role h3 {
+    font-size: 1.08rem;
+    margin: 0 0 3px;
+  }
+
+  .role .meta {
+    font-size: 0.88rem;
+    color: var(--ink-faint);
+    margin: 0 0 12px;
+  }
+
+  .role ul {
+    margin: 0;
+    padding-left: 20px;
+    color: var(--ink-soft);
+  }
+
+  .role ul li { margin-bottom: 8px; }
+  .role ul li:last-child { margin-bottom: 0; }
+
+  .role ul li.placeholder {
+    color: var(--ink-faint);
+    font-style: italic;
+    border-left: 2px dashed var(--line);
+    padding-left: 10px;
+    list-style: none;
+    margin-left: -20px;
+  }
+
+  /* ---------- Work cards ---------- */
+  .card {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 24px;
+    margin-bottom: 20px;
+  }
+  .card:last-child { margin-bottom: 0; }
+
+  .card h3 {
+    font-size: 1.05rem;
+    margin: 0 0 6px;
+  }
+
+  .card .summary {
+    font-size: 0.95rem;
+    color: var(--ink);
+    font-weight: 600;
+    margin: 0 0 12px;
+  }
+
+  .card .detail {
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+    margin: 0 0 16px;
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 0;
+  }
+
+  .tag {
+    font-size: 0.76rem;
+    color: var(--ink-soft);
+    background: #fff;
+    border: 1px solid var(--line);
+    padding: 4px 10px;
+    border-radius: 100px;
+    white-space: nowrap;
+  }
+
+  .shot-strip {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    padding: 4px 4px 12px;
+    margin: 0 0 16px;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .shot-strip img {
+    width: 200px;
+    flex: 0 0 auto;
+    border-radius: 12px;
+    border: 1px solid var(--line);
+    display: block;
+  }
+
+  /* ---------- Skills ---------- */
+  .skill-group { margin-bottom: 20px; }
+  .skill-group:last-child { margin-bottom: 0; }
+
+  .skill-group h4 {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--ink-faint);
+    margin: 0 0 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .pill {
+    font-size: 0.85rem;
+    padding: 6px 13px;
+    border-radius: 100px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    border: 1px solid transparent;
+  }
+
+  /* ---------- Education ---------- */
+  .edu-item {
+    margin-bottom: 18px;
+  }
+  .edu-item:last-child { margin-bottom: 0; }
+
+  .edu-item h3 {
+    font-size: 1rem;
+    margin: 0 0 2px;
+  }
+
+  .edu-item .meta {
+    font-size: 0.88rem;
+    color: var(--ink-faint);
+    margin: 0;
+  }
+
+  /* ---------- Footer ---------- */
+  footer {
+    padding: 32px 0 56px;
+    text-align: center;
+    font-size: 0.82rem;
+    color: var(--ink-faint);
+  }
+
+  /* ---------- Scroll reveal ---------- */
+  .reveal {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+    html { scroll-behavior: auto; }
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 600px) {
+    header.hero { padding: 44px 0 32px; }
+    header.hero h1 { font-size: 1.7rem; }
+    .positioning { font-size: 1rem; }
+    section { padding: 34px 0; }
+    .card { padding: 18px; }
+  }
+</style>
+
+<header class="hero wrap">
+  <h1>Gowthamraj A</h1>
+  <p class="positioning">Product &amp; strategy professional with an engineering core — I diagnose problems, build the business case, and can ship the solution myself.</p>
+  <div class="contact-row">
+    <span>Bengaluru, India</span>
+    <a href="mailto:gowthamksa24@gmail.com">gowthamksa24@gmail.com</a>
+    <a href="tel:+919597250056">+91 95972 50056</a>
+    <a href="https://linkedin.com/in/gowtham24ksa" target="_blank" rel="noopener">linkedin.com/in/gowtham24ksa</a>
+  </div>
+  <a class="cv-btn" href="Gowthamraj_A_CV.pdf" target="_blank" rel="noopener">Download CV</a>
+</header>
+
+<main class="wrap">
+
+  <section class="about reveal">
+    <h2>About</h2>
+    <p>I started as a software engineer, spent 30 months building a banking CRM platform for Citibank, and used that vantage point to move into product and strategy — first diagnosing an adoption problem that no one had named, then owning the fix end to end. That combination means I can sit with an engineering team and understand what's actually hard, sit with a business stakeholder and quantify what a fix is worth, and when the situation calls for it, build and ship the product myself — I still do, most recently an offline-first Android app I designed, built, and shipped solo for a construction labour crew that reads no English.</p>
+    <p>I'm now focused on product management and technical program management roles in BFSI and fintech, where the ability to move fluidly between engineering, business case, and delivery is the job, not a side skill.</p>
+  </section>
+
+  <section class="experience reveal">
+    <h2>Experience</h2>
+
+    <div class="role">
+      <h3>&lt;Role title — e.g. Associate, Digital Integration&gt;</h3>
+      <p class="meta">PwC India · &lt;Start date&gt; – Present</p>
+      <ul>
+        <li class="placeholder">Paste bullet 1 here</li>
+        <li class="placeholder">Paste bullet 2 here</li>
+        <li class="placeholder">Paste bullet 3 here</li>
+      </ul>
+    </div>
+
+    <div class="role">
+      <h3>&lt;Role title — e.g. Senior Software Engineer&gt;</h3>
+      <p class="meta">Wipro (Citibank engagement) · &lt;Start date&gt; – &lt;End date&gt;</p>
+      <ul>
+        <li class="placeholder">Paste bullet 1 here</li>
+        <li class="placeholder">Paste bullet 2 here</li>
+        <li class="placeholder">Paste bullet 3 here</li>
+      </ul>
+    </div>
+
+    <div class="role">
+      <h3>&lt;Role title&gt;</h3>
+      <p class="meta">TCS · &lt;Start date&gt; – &lt;End date&gt;</p>
+      <ul>
+        <li class="placeholder">Paste bullet 1 here</li>
+        <li class="placeholder">Paste bullet 2 here</li>
+        <li class="placeholder">Paste bullet 3 here</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="work reveal">
+    <h2>Selected Work</h2>
+
+    <div class="card">
+      <h3>Sambalam — construction labour wage tracker</h3>
+      <p class="summary">An offline-first Android app that replaced a paper notebook for weekly wage settlement on building sites.</p>
+
+      <div class="shot-strip">
+        <img src="screenshots/sambalam-1.png" alt="Sambalam app screenshot 1" loading="lazy">
+        <img src="screenshots/sambalam-2.png" alt="Sambalam app screenshot 2" loading="lazy">
+        <img src="screenshots/sambalam-3.png" alt="Sambalam app screenshot 3" loading="lazy">
+        <img src="screenshots/sambalam-4.png" alt="Sambalam app screenshot 4" loading="lazy">
+        <img src="screenshots/sambalam-5.png" alt="Sambalam app screenshot 5" loading="lazy">
+        <img src="screenshots/sambalam-6.png" alt="Sambalam app screenshot 6" loading="lazy">
+      </div>
+
+      <p class="detail">A small-scale building contractor in Tamil Nadu recorded daily labour headcounts and weekly cash settlements by hand, where a miscalculation or a lost page meant paying the wrong amount to a crew. I ran discovery from the notebook itself, established that the underlying problem was outstanding balances rather than expense totals, and shipped a Tamil-first Android app with an English toggle across six sprints: tap-based daily headcount entry, automatic weekly settlement with advance deduction, and per-crew locking so a settled week cannot be altered retrospectively. One constraint drove every decision — the primary user reads no English and operates a smartphone at WhatsApp level — so daily entry requires no typing and a single tap copies the previous working day's crew composition. Built solo end to end: React Native and Expo, local SQLite with no backend so the app functions with no site connectivity, distributed as a direct-install APK with over-the-air updates for remote fixes.</p>
+
+      <div class="tags">
+        <span class="tag">Product discovery</span>
+        <span class="tag">User research</span>
+        <span class="tag">React Native</span>
+        <span class="tag">Expo</span>
+        <span class="tag">SQLite</span>
+        <span class="tag">Offline-first</span>
+        <span class="tag">Vernacular UX</span>
+        <span class="tag">Sole developer</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Prospect management module — Citibank CRM</h3>
+      <p class="summary">A module I proposed after finding the upstream gap, which contributed to a $1.56M account expansion.</p>
+      <p class="detail">While building a CRM platform for Citibank at Wipro, I found that prospects were being tracked in spreadsheets before they ever reached the CRM, so data quality was already degraded by the time records arrived. I proposed a standalone prospect management module that would feed the CRM on conversion, and owned it end to end from proposal through launch. Working with the client's US-based Product Owner, I defined the MVP, wrote the requirements, and shipped 15+ high-priority features with a team of 10. Relationship managers were avoiding the module because a single-page table loaded 30,000+ records at once, taking over 20 seconds — I diagnosed this as the primary adoption barrier and redesigned the table to load in pages, cutting load times to under a second and lifting daily usage from 60% to 85%. Stage-transition alerts across pipelines running 13 stages for institutional clients and 21 for HNI doubled portfolio capacity from 40 to 80 accounts per manager. The module's success contributed to Citibank expanding the engagement, worth $1.56M in new account revenue.</p>
+      <div class="tags">
+        <span class="tag">Product ownership</span>
+        <span class="tag">Requirements definition</span>
+        <span class="tag">MVP scoping</span>
+        <span class="tag">UX diagnosis</span>
+        <span class="tag">Stakeholder management</span>
+        <span class="tag">BFSI</span>
+        <span class="tag">CRM</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Analytics-as-a-Service — manufacturing procurement</h3>
+      <p class="summary">Discovery, KPI definition, and a business case that surfaced ₹3.45Cr in procurement savings.</p>
+      <p class="detail">A manufacturing client had operational data spread across SAP and ERP systems with no consolidated view across plants. I ran discovery with finance, sourcing, and operations to establish what each function actually needed to see, defined 50+ operational KPIs, and built seven Power BI dashboards integrating the underlying data — later used as the reference implementation in an enterprise client pitch. Alongside the delivery, I authored the business case for an Analytics-as-a-Service offering and purchase-order automation, using vendor price analysis to surface ₹3.45Cr in procurement savings and a 5% lead-time breach rate, and modelled time-series demand across ₹46.7Cr of inventory to identify ₹3.1Cr in excess stock.</p>
+      <div class="tags">
+        <span class="tag">Stakeholder discovery</span>
+        <span class="tag">KPI definition</span>
+        <span class="tag">Business case</span>
+        <span class="tag">Power BI</span>
+        <span class="tag">SAP/ERP</span>
+        <span class="tag">Demand forecasting</span>
+        <span class="tag">Procurement analytics</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="skills reveal">
+    <h2>Skills</h2>
+
+    <div class="skill-group">
+      <h4>Product</h4>
+      <div class="pills">
+        <span class="pill">Product discovery</span>
+        <span class="pill">MVP scoping</span>
+        <span class="pill">Requirements definition</span>
+        <span class="pill">Roadmapping</span>
+        <span class="pill">UX diagnosis</span>
+        <span class="pill">Stakeholder management</span>
+      </div>
+    </div>
+
+    <div class="skill-group">
+      <h4>Delivery</h4>
+      <div class="pills">
+        <span class="pill">Agile / Scrum</span>
+        <span class="pill">Cross-functional team leadership</span>
+        <span class="pill">Vendor &amp; client coordination</span>
+        <span class="pill">Program delivery</span>
+      </div>
+    </div>
+
+    <div class="skill-group">
+      <h4>Technical</h4>
+      <div class="pills">
+        <span class="pill">React Native</span>
+        <span class="pill">SQL</span>
+        <span class="pill">System design</span>
+        <span class="pill">API integration</span>
+        <span class="pill">SDLC</span>
+      </div>
+    </div>
+
+    <div class="skill-group">
+      <h4>Data</h4>
+      <div class="pills">
+        <span class="pill">Power BI</span>
+        <span class="pill">Financial modelling</span>
+        <span class="pill">KPI design</span>
+        <span class="pill">Demand forecasting</span>
+      </div>
+    </div>
+
+    <div class="skill-group">
+      <h4>Domain</h4>
+      <div class="pills">
+        <span class="pill">BFSI</span>
+        <span class="pill">Fintech</span>
+        <span class="pill">CRM platforms</span>
+        <span class="pill">Procurement &amp; supply chain</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="education reveal">
+    <h2>Education &amp; Certifications</h2>
+
+    <div class="edu-item">
+      <h3>MBA, Indian Institute of Management Bangalore</h3>
+      <p class="meta">2026</p>
+    </div>
+
+    <div class="edu-item">
+      <h3>BE, Computer Science — CEG, Anna University</h3>
+      <p class="meta">&lt;Graduation year&gt;</p>
+    </div>
+
+    <div class="edu-item">
+      <h3>CFA Level I</h3>
+      <p class="meta">Cleared</p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  Gowthamraj A · Bengaluru, India
+</footer>
+
+<script>
+  (function () {
+    var items = document.querySelectorAll('.reveal');
+    if (!('IntersectionObserver' in window)) {
+      items.forEach(function (el) { el.classList.add('visible'); });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    items.forEach(function (el) { io.observe(el); });
+  })();
+</script>
