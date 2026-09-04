@@ -274,108 +274,116 @@
   .role-content ul li:last-child { margin-bottom: 0; }
   .role-content ul li::marker { color: var(--accent); }
 
-  /* ---------- Selected Work split panel ---------- */
-  .work-split { position: relative; }
-  .work-item { display: contents; }
-
-  .rail-header {
-    display: block;
-    width: 100%;
-    text-align: left;
-    background: none;
-    border: none;
-    border-left: 2px solid transparent;
-    padding: 16px 0 16px 16px;
-    margin: 0;
-    cursor: pointer;
-    font-family: inherit;
-    color: inherit;
-    transition: transform 0.2s ease, border-color 0.2s ease;
-  }
-  .rail-header h4 {
-    font-family: var(--serif);
-    font-size: 1.05rem;
-    font-weight: 600;
-    color: var(--text-faint);
-    margin: 0 0 6px;
-    line-height: 1.35;
-    transition: color 0.25s ease;
-  }
-  .rail-header p {
-    font-family: var(--serif);
-    font-size: 0.88rem;
-    color: var(--text-faint);
-    opacity: 0.75;
-    margin: 0;
-    line-height: 1.5;
-    transition: color 0.25s ease, opacity 0.25s ease;
-  }
-  .rail-header.active { border-left-color: var(--accent); }
-  .rail-header.active h4 { color: var(--text); }
-  .rail-header.active p { color: var(--text-soft); opacity: 1; }
-  .rail-header:not(.active):hover { transform: translateX(4px); }
-  .rail-header:not(.active):hover h4 { color: var(--text-soft); }
-  .rail-header:not(.active):hover p { opacity: 0.95; }
-
-  .rail-marker { display: none; }
-
-  .panel-content {
+  /* ---------- Selected Work coverflow carousel ---------- */
+  .work-carousel {
+    width: calc(100% + var(--gutter) + 28px);
+    margin-left: calc(-1 * var(--gutter));
     position: relative;
-    max-height: 0;
-    overflow: hidden;
+    overflow-x: hidden;
+    padding: 44px 0 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .carousel-track { position: relative; width: 100%; }
+
+  .carousel-card {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: min(620px, 86vw);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: clamp(28px, 4vw, 40px);
+    transition: transform 0.45s cubic-bezier(0.16, 0.84, 0.44, 1), opacity 0.45s cubic-bezier(0.16, 0.84, 0.44, 1), box-shadow 0.45s ease;
+  }
+  .carousel-card[data-rel="0"] {
+    transform: translateX(-50%) scale(1);
     opacity: 1;
-    pointer-events: auto;
-    margin: 0 0 8px 16px;
-    transition: max-height 0.4s ease;
+    z-index: 3;
+    box-shadow: 0 32px 64px -24px rgba(0, 0, 0, 0.65);
+    cursor: default;
   }
-  .panel-content.active { max-height: 3200px; }
-
-  @media (min-width: 781px) {
-    .work-split { display: grid; grid-template-columns: 30% 1fr; column-gap: 56px; align-content: start; }
-    .rail-header { grid-column: 1; border-left: none; padding: 18px 24px 18px 22px; align-self: start; }
-    .rail-marker {
-      display: block;
-      grid-column: 1;
-      grid-row: 1;
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 2px;
-      background: var(--accent);
-      border-radius: 1px;
-    }
-    .panel-content {
-      grid-column: 2;
-      grid-row: 1;
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      max-height: none;
-      overflow: visible;
-      margin: 0;
-      opacity: 0;
-      pointer-events: none;
-      padding: clamp(28px, 4vw, 44px);
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      transition: none;
-    }
-    .panel-content.active { opacity: 1; pointer-events: auto; }
+  .carousel-card[data-rel="-1"] {
+    transform: translateX(calc(-50% - 78%)) scale(0.8);
+    opacity: 0.45;
+    z-index: 1;
+    cursor: pointer;
   }
+  .carousel-card[data-rel="1"] {
+    transform: translateX(calc(-50% + 78%)) scale(0.8);
+    opacity: 0.45;
+    z-index: 1;
+    cursor: pointer;
+  }
+  .carousel-card[data-rel="-1"]:hover,
+  .carousel-card[data-rel="1"]:hover { opacity: 0.65; }
 
-  .detail { font-size: 1rem; color: var(--text-soft); line-height: 1.8; margin: 0 0 28px; }
-  .panel-content .tags { margin: 0 0 28px; }
+  .carousel-card h3 {
+    font-family: var(--serif);
+    font-size: 1.4rem;
+    font-weight: 600;
+    letter-spacing: -0.005em;
+    margin: 0 0 12px;
+    color: var(--text);
+  }
+  .carousel-card .summary {
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    font-style: italic;
+    color: var(--text-soft);
+    line-height: 1.6;
+    margin: 0;
+  }
+  .carousel-card[data-rel="0"] .summary { margin-bottom: 24px; }
 
-  .panel-content > .detail,
-  .panel-content > .metrics,
-  .panel-content > .tags,
-  .panel-content > .marquee {
+  .card-extra { display: none; }
+  .card-extra.visible { display: block; }
+
+  .card-extra > .detail,
+  .card-extra > .metrics,
+  .card-extra > .tags,
+  .card-extra > .marquee {
     opacity: 1;
     transform: translateY(0);
   }
-  .panel-content .tags .tag { opacity: 1; transform: translateY(0); }
+  .card-extra .tags .tag { opacity: 1; transform: translateY(0); }
+
+  .carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 28px;
+    position: relative;
+    z-index: 4;
+  }
+  .carousel-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--border);
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.3s ease;
+  }
+  .carousel-dot:hover { background: var(--text-faint); }
+  .carousel-dot.active { background: var(--accent); transform: scale(1.3); }
+
+  .metrics-large { padding: 44px 0; gap: 44px; }
+  .metrics-large .metric-figure { font-size: clamp(2rem, 3vw, 2.75rem); }
+  .metrics-large .metric-caption { font-size: 0.78rem; margin-top: 10px; }
+
+  @media (max-width: 768px) {
+    .carousel-card { width: min(420px, 90vw); }
+    .carousel-card[data-rel="-1"] { transform: translateX(calc(-50% - 96%)) scale(0.92); opacity: 0.5; }
+    .carousel-card[data-rel="1"] { transform: translateX(calc(-50% + 96%)) scale(0.92); opacity: 0.5; }
+  }
+
+  .detail { font-size: 1rem; color: var(--text-soft); line-height: 1.8; margin: 0 0 28px; }
+  .card-extra .tags { margin: 0 0 28px; }
 
   /* Metric callouts */
   .metrics {
@@ -520,7 +528,8 @@
     .marquee-track { animation: none !important; }
     .marquee { overflow-x: auto; -webkit-overflow-scrolling: touch; }
     .marquee-track .shot-frame:nth-child(n+7) { display: none; }
-    .rail-header, .rail-header h4, .rail-header p, .rail-marker, .panel-content { transition: none !important; }
+    .carousel-card { transition: none !important; }
+    .carousel-dot { transition: none !important; }
   }
 
   /* ---------- Print ---------- */
@@ -541,18 +550,25 @@
     header.hero { min-height: auto; padding: 24px 0; }
     .scroll-cue, .spine, .spine-fill, .marker { display: none !important; }
     section { border-bottom: 1px solid #ddd; padding: 20px 0 !important; }
-    .work-split { display: block !important; }
-    .rail-marker { display: none !important; }
-    .rail-header { border-left: none; padding: 12px 0 4px; }
-    .panel-content {
-      position: static !important;
-      opacity: 1 !important;
-      max-height: none !important;
+    .work-carousel {
+      width: auto !important;
+      margin-left: 0 !important;
       overflow: visible !important;
-      margin: 0 0 24px 16px !important;
-      border: 1px solid #ccc;
-      padding: 16px;
+      display: block !important;
+      padding: 0 !important;
     }
+    .carousel-track { height: auto !important; }
+    .carousel-card {
+      position: static !important;
+      transform: none !important;
+      opacity: 1 !important;
+      width: 100% !important;
+      margin: 0 0 20px !important;
+      box-shadow: none !important;
+      border: 1px solid #ccc;
+    }
+    .card-extra { display: block !important; }
+    .carousel-dots { display: none !important; }
     .marquee { overflow: visible; mask-image: none; -webkit-mask-image: none; }
     .marquee-track { animation: none !important; transform: none !important; flex-wrap: wrap; }
     .marquee-track .shot-frame:nth-child(n+7) { display: none; }
@@ -649,26 +665,15 @@
     <div class="marker" aria-hidden="true"></div>
     <div class="inner">
       <h2>Selected Work</h2>
+    </div>
 
-      <div class="work-split" role="tablist">
-        <div class="rail-marker" aria-hidden="true"></div>
-
-        <div class="work-item">
-          <button class="rail-header active" type="button" role="tab" aria-selected="true" aria-controls="panel-sambalam" id="tab-sambalam" data-target="sambalam">
-            <h4>Sambalam — construction labour wage tracker</h4>
-            <p>An offline-first Android app that replaced a paper notebook for weekly wage settlement on building sites.</p>
-          </button>
-          <div class="panel-content active" id="panel-sambalam" data-panel="sambalam" role="tabpanel" aria-labelledby="tab-sambalam">
+    <div class="work-carousel" role="region" aria-roledescription="carousel" aria-label="Selected work projects">
+      <div class="carousel-track">
+        <div class="carousel-card" data-index="0" data-rel="0" aria-hidden="false">
+          <h3>Sambalam — construction labour wage tracker</h3>
+          <p class="summary">An offline-first Android app that replaced a paper notebook for weekly wage settlement on building sites.</p>
+          <div class="card-extra visible">
             <p class="detail">A small-scale building contractor in Tamil Nadu recorded daily labour headcounts and weekly cash settlements by hand, where a miscalculation or a lost page meant paying the wrong amount to a crew. I ran discovery from the notebook itself, established that the underlying problem was outstanding balances rather than expense totals, and shipped a Tamil-first Android app with an English toggle across six sprints: tap-based daily headcount entry, automatic weekly settlement with advance deduction, and per-crew locking so a settled week cannot be altered retrospectively. One constraint drove every decision — the primary user reads no English and operates a smartphone at WhatsApp level — so daily entry requires no typing and a single tap copies the previous working day's crew composition. Built and shipped solo by directing an AI coding agent (Claude Code): I ran discovery, defined the domain model and every product decision, tested on device across six sprints, and distributed it as a direct-install APK with over-the-air updates.</p>
-            <div class="tags">
-              <span class="tag">Product discovery</span>
-              <span class="tag">User research</span>
-              <span class="tag">Domain modelling</span>
-              <span class="tag">Vernacular UX</span>
-              <span class="tag">AI-assisted development</span>
-              <span class="tag">Offline-first</span>
-              <span class="tag">Sole owner</span>
-            </div>
             <div class="marquee">
               <div class="marquee-track">
                 <div class="shot-frame"><img src="screenshots/sambalam-1.png" alt="Sambalam projects list screen" loading="lazy"></div>
@@ -685,17 +690,24 @@
                 <div class="shot-frame" aria-hidden="true"><img src="screenshots/sambalam-6.png" alt="" loading="lazy"></div>
               </div>
             </div>
+            <div class="tags">
+              <span class="tag">Product discovery</span>
+              <span class="tag">User research</span>
+              <span class="tag">Domain modelling</span>
+              <span class="tag">Vernacular UX</span>
+              <span class="tag">AI-assisted development</span>
+              <span class="tag">Offline-first</span>
+              <span class="tag">Sole owner</span>
+            </div>
           </div>
         </div>
 
-        <div class="work-item">
-          <button class="rail-header" type="button" role="tab" aria-selected="false" aria-controls="panel-citibank" id="tab-citibank" data-target="citibank">
-            <h4>Prospect management module — Citibank CRM</h4>
-            <p>A module I proposed after finding the upstream gap, which contributed to a $1.56M account expansion.</p>
-          </button>
-          <div class="panel-content" id="panel-citibank" data-panel="citibank" role="tabpanel" aria-labelledby="tab-citibank">
+        <div class="carousel-card" data-index="1" data-rel="1" aria-hidden="true">
+          <h3>Prospect management module — Citibank CRM</h3>
+          <p class="summary">A module I proposed after finding the upstream gap, which contributed to a $1.56M account expansion.</p>
+          <div class="card-extra">
             <p class="detail">While building a CRM platform for Citibank at Wipro, I found that prospects were being tracked in spreadsheets before they ever reached the CRM, so data quality was already degraded by the time records arrived. I proposed a standalone prospect management module that would feed the CRM on conversion, and owned it end to end from proposal through launch. Working with the client's US-based Product Owner, I defined the MVP, wrote the requirements, and shipped 15+ high-priority features with a team of 10. Relationship managers were avoiding the module because a single-page table loaded 30,000+ records at once, taking over 20 seconds — I diagnosed this as the primary adoption barrier and redesigned the table to load in pages, cutting load times to under a second and lifting daily usage from 60% to 85%. Stage-transition alerts across pipelines running 13 stages for institutional clients and 21 for HNI doubled portfolio capacity from 40 to 80 accounts per manager. The module's success contributed to Citibank expanding the engagement, worth $1.56M in new account revenue.</p>
-            <div class="metrics">
+            <div class="metrics metrics-large">
               <div class="metric">
                 <div class="metric-figure"><span class="metric-value" data-count-to="1.56" data-decimals="2" data-prefix="$" data-suffix="M">$0.00M</span></div>
                 <p class="metric-caption">New account revenue</p>
@@ -725,14 +737,12 @@
           </div>
         </div>
 
-        <div class="work-item">
-          <button class="rail-header" type="button" role="tab" aria-selected="false" aria-controls="panel-analytics" id="tab-analytics" data-target="analytics">
-            <h4>Analytics-as-a-Service — manufacturing procurement</h4>
-            <p>Discovery, KPI definition, and a business case that surfaced ₹3.45Cr in procurement savings.</p>
-          </button>
-          <div class="panel-content" id="panel-analytics" data-panel="analytics" role="tabpanel" aria-labelledby="tab-analytics">
+        <div class="carousel-card" data-index="2" data-rel="-1" aria-hidden="true">
+          <h3>Analytics-as-a-Service — manufacturing procurement</h3>
+          <p class="summary">Discovery, KPI definition, and a business case that surfaced ₹3.45Cr in procurement savings.</p>
+          <div class="card-extra">
             <p class="detail">A manufacturing client had operational data spread across SAP and ERP systems with no consolidated view across plants. I ran discovery with finance, sourcing, and operations to establish what each function actually needed to see, defined 50+ operational KPIs, and built seven Power BI dashboards integrating the underlying data — later used as the reference implementation in an enterprise client pitch. Alongside the delivery, I authored the business case for an Analytics-as-a-Service offering and purchase-order automation, using vendor price analysis to surface ₹3.45Cr in procurement savings and a 5% lead-time breach rate, and modelled time-series demand across ₹46.7Cr of inventory to identify ₹3.1Cr in excess stock.</p>
-            <div class="metrics">
+            <div class="metrics metrics-large">
               <div class="metric">
                 <div class="metric-figure"><span class="metric-value" data-count-to="3.45" data-decimals="2" data-prefix="₹" data-suffix="Cr">₹0.00Cr</span></div>
                 <p class="metric-caption">Procurement savings surfaced</p>
@@ -761,6 +771,12 @@
             </div>
           </div>
         </div>
+      </div>
+
+      <div class="carousel-dots">
+        <button class="carousel-dot active" type="button" data-target="0" aria-label="Show Sambalam" aria-current="true"></button>
+        <button class="carousel-dot" type="button" data-target="1" aria-label="Show Citibank CRM" aria-current="false"></button>
+        <button class="carousel-dot" type="button" data-target="2" aria-label="Show Analytics-as-a-Service" aria-current="false"></button>
       </div>
     </div>
   </section>
@@ -909,29 +925,14 @@
       }
       window.requestAnimationFrame(step);
     }
-    /* Selected Work split panel */
-    var workSplit = document.querySelector('.work-split');
-    if (workSplit) {
-      var railHeaders = Array.prototype.slice.call(workSplit.querySelectorAll('.rail-header'));
-      var panels = Array.prototype.slice.call(workSplit.querySelectorAll('.panel-content'));
-      var marker = workSplit.querySelector('.rail-marker');
-      var currentId = 'sambalam';
-      var isDesktop = function () { return window.matchMedia('(min-width: 781px)').matches; };
-
-      function moveMarker(headerEl, animate) {
-        if (!marker || !headerEl) return;
-        if (!animate) {
-          marker.style.transition = 'none';
-          marker.style.transform = 'translateY(' + headerEl.offsetTop + 'px)';
-          marker.style.height = headerEl.offsetHeight + 'px';
-          void marker.offsetWidth;
-          marker.style.transition = 'transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), height 0.3s ease';
-        } else {
-          marker.style.transition = 'transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), height 0.3s ease';
-          marker.style.transform = 'translateY(' + headerEl.offsetTop + 'px)';
-          marker.style.height = headerEl.offsetHeight + 'px';
-        }
-      }
+    /* Selected Work coverflow carousel */
+    var carouselRoot = document.querySelector('.work-carousel');
+    if (carouselRoot) {
+      var track = carouselRoot.querySelector('.carousel-track');
+      var cards = Array.prototype.slice.call(carouselRoot.querySelectorAll('.carousel-card'));
+      var dots = Array.prototype.slice.call(carouselRoot.querySelectorAll('.carousel-dot'));
+      var N = cards.length;
+      var active = 0;
 
       function primeHidden(el) {
         el.style.transition = 'none';
@@ -944,94 +945,98 @@
         el.style.transform = '';
       }
 
-      function activate(id) {
-        if (id === currentId) return;
-        var newHeader = workSplit.querySelector('.rail-header[data-target="' + id + '"]');
-        var oldPanel = workSplit.querySelector('.panel-content[data-panel="' + currentId + '"]');
-        var newPanel = workSplit.querySelector('.panel-content[data-panel="' + id + '"]');
-        if (!newHeader || !newPanel) return;
-
-        railHeaders.forEach(function (h) {
-          h.classList.remove('active');
-          h.setAttribute('aria-selected', 'false');
-        });
-        newHeader.classList.add('active');
-        newHeader.setAttribute('aria-selected', 'true');
-
-        if (isDesktop()) { moveMarker(newHeader, !reduceMotion); }
-
+      function showCenterContent(card) {
+        var extra = card.querySelector('.card-extra');
+        if (!extra) return;
+        extra.classList.add('visible');
+        var blocks = Array.prototype.slice.call(extra.children);
         if (reduceMotion) {
-          panels.forEach(function (p) { p.classList.remove('active'); });
-          newPanel.classList.add('active');
-          newPanel.querySelectorAll('[data-count-to]').forEach(function (el) { runCount(el); });
-          currentId = id;
-          return;
-        }
-
-        if (isDesktop()) {
-          if (oldPanel && oldPanel !== newPanel) {
-            oldPanel.classList.remove('active');
-            oldPanel.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
-            oldPanel.style.opacity = '0';
-            oldPanel.style.transform = 'translateY(-14px)';
-            window.setTimeout(function () {
-              oldPanel.style.transition = '';
-              oldPanel.style.opacity = '';
-              oldPanel.style.transform = '';
-            }, 320);
-          }
-
-          newPanel.classList.add('active');
-          var blocks = Array.prototype.slice.call(newPanel.children);
-          blocks.forEach(function (block) {
-            primeHidden(block);
-            if (block.classList.contains('tags')) {
-              Array.prototype.forEach.call(block.children, function (tag) { primeHidden(tag); });
+          blocks.forEach(function (b) {
+            b.style.opacity = '';
+            b.style.transform = '';
+            if (b.classList.contains('tags')) {
+              Array.prototype.forEach.call(b.children, function (t) { t.style.opacity = ''; t.style.transform = ''; });
             }
           });
-          void newPanel.offsetWidth;
-          blocks.forEach(function (block, i) {
-            var delay = i * 60;
-            revealBlock(block, delay);
-            if (block.classList.contains('tags')) {
-              Array.prototype.forEach.call(block.children, function (tag, ti) {
-                revealBlock(tag, delay + ti * 40);
-              });
-            }
-          });
-
-          newPanel.querySelectorAll('[data-count-to]').forEach(function (el) { runCount(el); });
         } else {
-          panels.forEach(function (p) { p.classList.remove('active'); });
-          newPanel.classList.add('active');
-          newPanel.querySelectorAll('[data-count-to]').forEach(function (el) { runCount(el); });
+          blocks.forEach(function (b) {
+            primeHidden(b);
+            if (b.classList.contains('tags')) {
+              Array.prototype.forEach.call(b.children, function (t) { primeHidden(t); });
+            }
+          });
+          void extra.offsetWidth;
+          blocks.forEach(function (b, i) {
+            var delay = i * 60;
+            revealBlock(b, delay);
+            if (b.classList.contains('tags')) {
+              Array.prototype.forEach.call(b.children, function (t, ti) { revealBlock(t, delay + ti * 40); });
+            }
+          });
         }
-
-        currentId = id;
+        extra.querySelectorAll('[data-count-to]').forEach(function (el) { runCount(el); });
+      }
+      function hideCenterContent(card) {
+        var extra = card.querySelector('.card-extra');
+        if (extra) extra.classList.remove('visible');
       }
 
-      railHeaders.forEach(function (header) {
-        header.addEventListener('click', function () { activate(header.getAttribute('data-target')); });
+      function apply(newActive) {
+        var prevActive = active;
+        active = ((newActive % N) + N) % N;
+        cards.forEach(function (card) {
+          var idx = parseInt(card.getAttribute('data-index'), 10);
+          var rel = ((idx - active + 1 + N) % N) - 1;
+          card.setAttribute('data-rel', String(rel));
+          card.setAttribute('aria-hidden', rel === 0 ? 'false' : 'true');
+        });
+        dots.forEach(function (d, i) {
+          d.classList.toggle('active', i === active);
+          d.setAttribute('aria-current', i === active ? 'true' : 'false');
+        });
+        var newCard = cards[active];
+        var oldCard = cards[prevActive];
+        if (oldCard !== newCard) { hideCenterContent(oldCard); }
+        showCenterContent(newCard);
+      }
+
+      cards.forEach(function (card) {
+        card.addEventListener('click', function () {
+          var idx = parseInt(card.getAttribute('data-index'), 10);
+          if (idx !== active) { apply(idx); }
+        });
       });
+      dots.forEach(function (dot) {
+        dot.addEventListener('click', function () { apply(parseInt(dot.getAttribute('data-target'), 10)); });
+      });
+
+      carouselRoot.setAttribute('tabindex', '0');
+      carouselRoot.addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowLeft') { e.preventDefault(); apply(active - 1); }
+        else if (e.key === 'ArrowRight') { e.preventDefault(); apply(active + 1); }
+      });
+
+      var touchStartX = null;
+      track.addEventListener('touchstart', function (e) { touchStartX = e.touches[0].clientX; }, { passive: true });
+      track.addEventListener('touchend', function (e) {
+        if (touchStartX === null) return;
+        var dx = e.changedTouches[0].clientX - touchStartX;
+        if (Math.abs(dx) > 40) { apply(active + (dx < 0 ? 1 : -1)); }
+        touchStartX = null;
+      }, { passive: true });
 
       function syncHeight() {
-        if (!isDesktop()) { workSplit.style.minHeight = ''; return; }
-        var tallest = 0;
-        panels.forEach(function (p) { tallest = Math.max(tallest, p.offsetHeight); });
-        var railHeight = 0;
-        railHeaders.forEach(function (h) { railHeight += h.offsetHeight; });
-        workSplit.style.minHeight = Math.max(tallest, railHeight) + 'px';
+        var sambalamCard = cards[0];
+        var extra = sambalamCard.querySelector('.card-extra');
+        var wasVisible = extra.classList.contains('visible');
+        if (!wasVisible) { extra.classList.add('visible'); }
+        var h = sambalamCard.offsetHeight;
+        if (!wasVisible) { extra.classList.remove('visible'); }
+        track.style.height = h + 'px';
       }
 
-      var initialHeader = workSplit.querySelector('.rail-header[data-target="sambalam"]');
-      if (isDesktop() && initialHeader) { moveMarker(initialHeader, false); }
       syncHeight();
-
-      window.addEventListener('resize', function () {
-        var activeHeader = workSplit.querySelector('.rail-header.active');
-        if (isDesktop() && activeHeader) { moveMarker(activeHeader, false); }
-        syncHeight();
-      });
+      window.addEventListener('resize', syncHeight);
     }
   })();
 </script>
