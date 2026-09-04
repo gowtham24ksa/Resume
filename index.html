@@ -11,21 +11,27 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
 
 <style>
   :root {
-    --ink: #1a1d21;
-    --ink-soft: #52585f;
-    --ink-faint: #8a9099;
-    --line: #e3e5e8;
-    --paper: #ffffff;
-    --panel: #f7f8f9;
-    --accent: #0a5c4a;
-    --accent-dark: #084a3c;
-    --max: 760px;
-    --font: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --bg: #0e1116;
+    --surface: #151a21;
+    --surface-2: #1b222b;
+    --border: #262e38;
+    --text: #dee2e7;
+    --text-soft: #a2abb6;
+    --text-faint: #6b7480;
+    --accent: #d9a45c;
+    --accent-bright: #efc079;
+    --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    --serif: "Newsreader", Georgia, "Times New Roman", serif;
+    --gutter: 96px;
+    --page-max: 1360px;
   }
+
+  @media (max-width: 900px) { :root { --gutter: 64px; } }
+  @media (max-width: 680px) { :root { --gutter: 24px; } }
 
   * { box-sizing: border-box; }
 
@@ -33,270 +39,384 @@
 
   body {
     margin: 0;
-    font-family: var(--font);
+    font-family: var(--serif);
     font-size: 18px;
-    color: var(--ink);
-    background: var(--paper);
-    line-height: 1.65;
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.7;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
   }
 
   a { color: var(--accent); text-decoration: none; }
-  a:hover { text-decoration: underline; }
-
-  .wrap {
-    max-width: var(--max);
-    margin: 0 auto;
-    padding: 0 24px;
-  }
+  a:hover { color: var(--accent-bright); text-decoration: underline; }
 
   /* ---------- Header ---------- */
   header.hero {
     position: relative;
+    max-width: var(--page-max);
+    margin: 0 auto;
     min-height: 100svh;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 64px 0 96px;
+    padding: 56px 28px 104px var(--gutter);
   }
 
   header.hero h1 {
-    font-size: clamp(2.75rem, 4vw + 1.5rem, 4.5rem);
-    font-weight: 800;
-    line-height: 1.04;
-    letter-spacing: -0.035em;
-    margin: 0 0 22px;
+    font-family: var(--serif);
+    font-size: clamp(3rem, 5vw + 1.2rem, 5.5rem);
+    font-weight: 600;
+    line-height: 1.03;
+    letter-spacing: -0.02em;
+    margin: 0 0 24px;
   }
 
   .positioning {
-    font-size: clamp(1.1rem, 0.6vw + 0.95rem, 1.3rem);
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: clamp(1.15rem, 0.7vw + 0.95rem, 1.4rem);
     font-weight: 400;
-    color: var(--ink-soft);
-    line-height: 1.55;
-    letter-spacing: -0.005em;
-    margin: 0 0 36px;
-    max-width: 52ch;
+    color: var(--text-soft);
+    line-height: 1.6;
+    margin: 0 0 40px;
+    max-width: 54ch;
   }
 
   .contact-row {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 8px 12px;
-    font-size: 0.95rem;
-    color: var(--ink-soft);
-    margin-bottom: 40px;
+    gap: 8px 14px;
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    color: var(--text-faint);
+    margin-bottom: 44px;
   }
 
-  .contact-row span, .contact-row a { color: var(--ink-soft); }
-  .contact-row .dot { color: var(--ink-faint); }
+  .contact-row a { color: var(--text-soft); }
+  .contact-row .dot { color: var(--text-faint); }
   .contact-row a:hover { color: var(--accent); text-decoration: underline; }
 
   .cv-btn {
     display: inline-block;
     align-self: flex-start;
-    background: var(--accent);
-    color: #fff;
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    background: transparent;
+    border: 1px solid var(--accent);
     padding: 14px 26px;
-    border-radius: 8px;
-    font-size: 0.95rem;
-    font-weight: 600;
-    letter-spacing: -0.005em;
+    border-radius: 6px;
   }
-  .cv-btn:hover { background: var(--accent-dark); text-decoration: none; }
+  .cv-btn:hover { background: var(--accent); color: var(--bg); text-decoration: none; }
 
   .scroll-cue {
     position: absolute;
-    left: 24px;
+    left: var(--gutter);
     bottom: 40px;
     display: flex;
     align-items: center;
     gap: 10px;
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.12em;
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--ink-faint);
+    color: var(--text-faint);
   }
   .scroll-cue:hover { color: var(--accent); text-decoration: none; }
-  .scroll-cue .line {
-    width: 28px;
-    height: 1px;
-    background: currentColor;
+  .scroll-cue .line { width: 28px; height: 1px; background: currentColor; }
+
+  /* ---------- Content frame + spine ---------- */
+  .content {
+    position: relative;
+    max-width: var(--page-max);
+    margin: 0 auto;
+    counter-reset: section;
+  }
+
+  .spine, .spine-fill {
+    position: absolute;
+    left: calc(var(--gutter) / 2.6);
+    top: 0;
+    bottom: 0;
+    width: 1px;
+  }
+  .spine { background: var(--border); }
+  .spine-fill { background: var(--accent); height: 0%; transform-origin: top; }
+
+  .marker {
+    position: absolute;
+    left: calc(var(--gutter) / 2.6);
+    top: clamp(64px, 9vw, 112px);
+    width: 30px;
+    height: 30px;
+    transform: translate(-50%, -6px);
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    color: var(--text-faint);
+    z-index: 2;
+    transition: color 0.35s ease, border-color 0.35s ease, background 0.35s ease;
+  }
+  .marker::before { content: counter(section, decimal-leading-zero); }
+  .marker.active { color: var(--bg); background: var(--accent); border-color: var(--accent); }
+
+  @media (max-width: 680px) {
+    .spine, .spine-fill, .marker { display: none; }
   }
 
   /* ---------- Sections ---------- */
   section {
-    padding: clamp(56px, 9vw, 104px) 0;
-    border-bottom: 1px solid var(--line);
+    counter-increment: section;
+    position: relative;
+    padding: clamp(64px, 9vw, 112px) 28px clamp(64px, 9vw, 112px) var(--gutter);
+    border-bottom: 1px solid var(--border);
   }
 
   section:last-of-type { border-bottom: none; }
 
+  .inner { max-width: 620px; }
+  .experience .inner { max-width: 780px; }
+  .work .inner { max-width: 960px; }
+
   h2 {
     display: flex;
-    align-items: center;
-    gap: 20px;
-    font-size: 0.8rem;
-    font-weight: 600;
+    align-items: baseline;
+    gap: 16px;
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    font-weight: 500;
     text-transform: uppercase;
     letter-spacing: 0.14em;
-    color: var(--accent);
+    color: var(--text-soft);
     margin: 0 0 44px;
-    white-space: nowrap;
   }
-
+  h2::before {
+    content: counter(section, decimal-leading-zero);
+    color: var(--accent);
+    font-weight: 600;
+  }
   h2::after {
     content: "";
     flex: 1;
     height: 1px;
-    background: var(--line);
+    background: var(--border);
+    align-self: center;
   }
 
   section.about p {
-    margin: 0 0 18px;
-    color: var(--ink-soft);
-    line-height: 1.7;
-    max-width: 66ch;
+    margin: 0 0 20px;
+    color: var(--text-soft);
+    line-height: 1.8;
   }
   section.about p:last-child { margin-bottom: 0; }
 
   /* ---------- Experience ---------- */
-  .role { margin-bottom: 44px; }
-  .role:last-child { margin-bottom: 0; }
+  .role {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 36px;
+    padding-bottom: 48px;
+    margin-bottom: 48px;
+    border-bottom: 1px solid var(--border);
+  }
+  .role:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
 
-  .role h3 {
-    font-size: 1.2rem;
+  @media (max-width: 900px) { .role { grid-template-columns: 150px 1fr; gap: 24px; } }
+  @media (max-width: 680px) { .role { grid-template-columns: 1fr; gap: 12px; } }
+
+  .role-rail { font-family: var(--mono); font-size: 0.78rem; line-height: 1.7; color: var(--text-faint); }
+  .role-rail .company { display: block; color: var(--text-soft); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 6px; }
+  .role-rail .dates { display: block; }
+
+  .role-content h3 {
+    font-family: var(--serif);
+    font-size: 1.35rem;
     font-weight: 600;
-    letter-spacing: -0.01em;
-    margin: 0 0 4px;
-  }
-
-  .role .meta {
-    font-size: 0.9rem;
-    color: var(--ink-faint);
+    letter-spacing: -0.005em;
     margin: 0 0 16px;
+    color: var(--text);
   }
 
-  .role ul {
-    margin: 0;
-    padding-left: 22px;
-    color: var(--ink-soft);
-  }
-
-  .role ul li { margin-bottom: 10px; line-height: 1.65; }
-  .role ul li:last-child { margin-bottom: 0; }
+  .role-content ul { margin: 0; padding-left: 20px; color: var(--text-soft); }
+  .role-content ul li { margin-bottom: 12px; line-height: 1.75; }
+  .role-content ul li:last-child { margin-bottom: 0; }
+  .role-content ul li::marker { color: var(--accent); }
 
   /* ---------- Work cards ---------- */
   .card {
-    background: var(--panel);
-    border: 1px solid var(--line);
-    border-radius: 14px;
-    padding: 40px;
-    margin-bottom: 24px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: clamp(28px, 4vw, 44px);
+    margin-bottom: 28px;
   }
   .card:last-child { margin-bottom: 0; }
 
   .card h3 {
-    font-size: 1.3rem;
+    font-family: var(--serif);
+    font-size: 1.4rem;
     font-weight: 600;
-    letter-spacing: -0.01em;
-    margin: 0 0 10px;
+    letter-spacing: -0.005em;
+    margin: 0 0 12px;
+    color: var(--text);
   }
 
   .card .summary {
-    font-size: 1.05rem;
-    color: var(--ink);
-    font-weight: 500;
-    line-height: 1.5;
-    margin: 0 0 20px;
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    font-style: italic;
+    color: var(--text-soft);
+    line-height: 1.6;
+    margin: 0 0 24px;
   }
 
   .card .detail {
     font-size: 1rem;
-    color: var(--ink-soft);
-    line-height: 1.7;
-    margin: 0 0 24px;
+    color: var(--text-soft);
+    line-height: 1.8;
+    margin: 0 0 28px;
   }
+  .card .detail:last-of-type { margin-bottom: 28px; }
 
-  .tags, .pills {
+  /* Metric callouts */
+  .metrics {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: 36px;
+    margin: 0 0 32px;
+    padding: 28px 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
   }
 
-  .tag, .pill {
-    font-size: 0.82rem;
-    font-weight: 500;
-    color: var(--ink-soft);
-    border: 1px solid var(--line);
-    padding: 6px 14px;
-    border-radius: 7px;
+  .metric { min-width: 130px; }
+
+  .metric-figure {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    font-family: var(--mono);
+    font-size: clamp(1.5rem, 2vw, 2rem);
+    font-weight: 600;
+    color: var(--accent);
+    letter-spacing: -0.01em;
     white-space: nowrap;
   }
+  .metric-figure .from,
+  .metric-figure .arrow { color: var(--text-faint); font-size: 0.62em; font-weight: 500; }
 
-  .tag { background: #fff; }
-  .pill { background: var(--panel); }
-
-  .shot-strip {
-    display: flex;
-    gap: 14px;
-    overflow-x: auto;
-    padding: 4px 4px 14px;
-    margin: 0 0 20px;
-    -webkit-overflow-scrolling: touch;
-    scroll-snap-type: x proximity;
+  .metric-caption {
+    margin: 8px 0 0;
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-faint);
   }
 
-  .shot-strip img {
-    width: 210px;
+  .tags, .pills { display: flex; flex-wrap: wrap; gap: 8px; }
+
+  .tag, .pill {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--text-soft);
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    padding: 6px 12px;
+    border-radius: 5px;
+    white-space: nowrap;
+    letter-spacing: 0.01em;
+  }
+
+  /* Screenshot marquee */
+  .marquee {
+    overflow: hidden;
+    margin: 0 0 28px;
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent);
+    mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent);
+  }
+
+  .marquee-track {
+    display: flex;
+    gap: 16px;
+    width: max-content;
+    animation: marquee 32s linear infinite;
+  }
+  .marquee:hover .marquee-track { animation-play-state: paused; }
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  .shot-frame {
     flex: 0 0 auto;
-    border-radius: 12px;
-    border: 1px solid var(--line);
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 10px;
+  }
+  .shot-frame img {
     display: block;
-    scroll-snap-align: start;
+    height: 360px;
+    width: auto;
+    border-radius: 10px;
   }
 
   /* ---------- Skills ---------- */
-  .skill-group { margin-bottom: 24px; }
+  .skill-group { margin-bottom: 26px; }
   .skill-group:last-child { margin-bottom: 0; }
 
   .skill-group h4 {
-    font-size: 0.78rem;
-    font-weight: 600;
-    color: var(--ink-faint);
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--text-faint);
     margin: 0 0 14px;
     text-transform: uppercase;
     letter-spacing: 0.08em;
   }
 
   /* ---------- Education ---------- */
-  .edu-item {
-    margin-bottom: 20px;
-  }
+  .edu-item { margin-bottom: 22px; }
   .edu-item:last-child { margin-bottom: 0; }
 
   .edu-item h3 {
-    font-size: 1.05rem;
+    font-family: var(--serif);
+    font-size: 1.15rem;
     font-weight: 600;
     letter-spacing: -0.005em;
-    margin: 0 0 3px;
+    margin: 0 0 4px;
+    color: var(--text);
   }
 
   .edu-item .meta {
-    font-size: 0.9rem;
-    color: var(--ink-faint);
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    color: var(--text-faint);
     margin: 0;
   }
 
   /* ---------- Footer ---------- */
   footer {
-    padding: 56px 0 80px;
-    text-align: center;
-    font-size: 0.85rem;
-    color: var(--ink-faint);
+    max-width: var(--page-max);
+    margin: 0 auto;
+    padding: 56px 28px 80px var(--gutter);
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    color: var(--text-faint);
   }
 
   /* ---------- Scroll reveal ---------- */
@@ -305,27 +425,45 @@
     transform: translateY(18px);
     transition: opacity 0.7s cubic-bezier(0.16, 0.84, 0.44, 1), transform 0.7s cubic-bezier(0.16, 0.84, 0.44, 1);
   }
-  .reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
 
   @media (prefers-reduced-motion: reduce) {
-    .reveal { opacity: 1; transform: none; transition: none; }
     html { scroll-behavior: auto; }
+    .reveal { opacity: 1; transform: none; transition: none; }
+    .marquee-track { animation: none !important; }
+    .marquee { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .marquee-track .shot-frame:nth-child(n+7) { display: none; }
   }
 
-  /* ---------- Responsive ---------- */
-  @media (max-width: 600px) {
-    header.hero { padding: 48px 0 88px; }
-    .positioning { max-width: 100%; }
-    .cv-btn { align-self: stretch; text-align: center; }
-    .card { padding: 26px; }
-    .scroll-cue { left: 24px; bottom: 28px; }
+  /* ---------- Print ---------- */
+  @media print {
+    :root {
+      --bg: #ffffff;
+      --surface: #ffffff;
+      --surface-2: #f4f4f4;
+      --border: #d6d6d6;
+      --text: #111318;
+      --text-soft: #333844;
+      --text-faint: #6a6f78;
+      --accent: #7a5209;
+      --accent-bright: #7a5209;
+      --gutter: 24px;
+    }
+    body { background: #fff; }
+    header.hero { min-height: auto; padding: 24px 0; }
+    .scroll-cue, .spine, .spine-fill, .marker { display: none !important; }
+    section { border-bottom: 1px solid #ddd; padding: 20px 0 !important; }
+    .card { border: 1px solid #ccc; }
+    .marquee { overflow: visible; mask-image: none; -webkit-mask-image: none; }
+    .marquee-track { animation: none !important; transform: none !important; flex-wrap: wrap; }
+    .marquee-track .shot-frame:nth-child(n+7) { display: none; }
+    .reveal { opacity: 1 !important; transform: none !important; }
+    .cv-btn { border: 1px solid #111; color: #111; }
+    a { color: #111; text-decoration: underline; }
   }
 </style>
 
-<header class="hero wrap">
+<header class="hero">
   <h1>Gowthamraj A</h1>
   <p class="positioning">Product &amp; strategy professional with an engineering core — I diagnose problems, build the business case, and can ship the solution myself.</p>
   <div class="contact-row">
@@ -341,185 +479,254 @@
   <a class="scroll-cue" href="#about"><span class="line" aria-hidden="true"></span>Scroll</a>
 </header>
 
-<main class="wrap">
+<div class="content">
+  <div class="spine" aria-hidden="true"></div>
+  <div class="spine-fill" aria-hidden="true"></div>
 
   <section id="about" class="about reveal">
-    <h2>About</h2>
-    <p>I started as a software engineer, spent 30 months building a banking CRM platform for Citibank, and used that vantage point to move into product and strategy — first diagnosing an adoption problem that no one had named, then owning the fix end to end. That combination means I can sit with an engineering team and understand what's actually hard, sit with a business stakeholder and quantify what a fix is worth, and when the situation calls for it, build and ship the product myself — I still do, most recently an offline-first Android app I designed, built, and shipped solo for a construction labour crew that reads no English.</p>
-    <p>I'm now focused on product management and technical program management roles in BFSI and fintech, where the ability to move fluidly between engineering, business case, and delivery is the job, not a side skill.</p>
+    <div class="marker" aria-hidden="true"></div>
+    <div class="inner">
+      <h2>About</h2>
+      <p>I started as a software engineer, spent 30 months building a banking CRM platform for Citibank, and used that vantage point to move into product and strategy — first diagnosing an adoption problem that no one had named, then owning the fix end to end. That combination means I can sit with an engineering team and understand what's actually hard, sit with a business stakeholder and quantify what a fix is worth, and when the situation calls for it, build and ship the product myself — I still do, most recently an offline-first Android app I designed, built, and shipped solo for a construction labour crew that reads no English.</p>
+      <p>I'm now focused on product management and technical program management roles in BFSI and fintech, where the ability to move fluidly between engineering, business case, and delivery is the job, not a side skill.</p>
+    </div>
   </section>
 
   <section class="experience reveal">
-    <h2>Experience</h2>
+    <div class="marker" aria-hidden="true"></div>
+    <div class="inner">
+      <h2>Experience</h2>
 
-    <div class="role">
-      <h3>Associate</h3>
-      <p class="meta">PwC India, Bengaluru · August 2026 – Present</p>
-      <ul>
-        <li>Took over an AI tool converting product demo videos into business requirement documents (Azure AI Foundry); rebuilt hardcoded prompting to generalise it across inputs and prioritise generated requirements via MoSCoW.</li>
-        <li>Scoped Planner as a practice-wide project management tool and shipped a Power Automate workflow converting email and Teams action items into tracked tasks, now in daily use.</li>
-        <li>Modelled projected and actual revenue across the vertical from resourcing, billing rates and normalised capacity, flagging variances and their commercial drivers monthly.</li>
-      </ul>
-    </div>
+      <div class="role">
+        <div class="role-rail">
+          <span class="company">PwC India<br>Bengaluru</span>
+          <span class="dates">Aug 2026 — Present</span>
+        </div>
+        <div class="role-content">
+          <h3>Associate</h3>
+          <ul>
+            <li>Took over an AI tool converting product demo videos into business requirement documents (Azure AI Foundry); rebuilt hardcoded prompting to generalise it across inputs and prioritise generated requirements via MoSCoW.</li>
+            <li>Scoped Planner as a practice-wide project management tool and shipped a Power Automate workflow converting email and Teams action items into tracked tasks, now in daily use.</li>
+            <li>Modelled projected and actual revenue across the vertical from resourcing, billing rates and normalised capacity, flagging variances and their commercial drivers monthly.</li>
+          </ul>
+        </div>
+      </div>
 
-    <div class="role">
-      <h3>Business Consultant, Strategic Leadership Program</h3>
-      <p class="meta">TCS · April 2025 – May 2025</p>
-      <ul>
-        <li>Led cross-functional discovery to define 50+ KPIs; launched 7 Power BI dashboards on SAP/ERP data, adopted by 15+ plant managers and used as the reference implementation in an enterprise client pitch.</li>
-        <li>Authored the product business case for Analytics-as-a-Service and purchase-order automation from vendor price analysis; surfaced ₹3.45Cr in procurement savings and identified a 5% lead-time breach rate.</li>
-        <li>Developed a time-series demand model across ₹46.7Cr of inventory to optimise safety-stock coverage; identified ₹3.1Cr in excess stock, enabling stakeholders to release ₹25L+ in working capital.</li>
-      </ul>
-    </div>
+      <div class="role">
+        <div class="role-rail">
+          <span class="company">TCS</span>
+          <span class="dates">Apr 2025 — May 2025</span>
+        </div>
+        <div class="role-content">
+          <h3>Business Consultant, Strategic Leadership Program</h3>
+          <ul>
+            <li>Led cross-functional discovery to define 50+ KPIs; launched 7 Power BI dashboards on SAP/ERP data, adopted by 15+ plant managers and used as the reference implementation in an enterprise client pitch.</li>
+            <li>Authored the product business case for Analytics-as-a-Service and purchase-order automation from vendor price analysis; surfaced ₹3.45Cr in procurement savings and identified a 5% lead-time breach rate.</li>
+            <li>Developed a time-series demand model across ₹46.7Cr of inventory to optimise safety-stock coverage; identified ₹3.1Cr in excess stock, enabling stakeholders to release ₹25L+ in working capital.</li>
+          </ul>
+        </div>
+      </div>
 
-    <div class="role">
-      <h3>Software Developer</h3>
-      <p class="meta">Wipro Technologies (Citibank engagement), Chennai · October 2021 – April 2024</p>
-      <ul>
-        <li>Built a custom CRM platform for Citibank to automate relationship manager workflows; identified prospect tracking as an upstream gap and owned the module end to end, enabling $1.56M in new account revenue.</li>
-        <li>Authored 10+ feature PRDs and worked through 300+ user stories with Citibank's US-based Product Owner, cutting requirement rework by 30% across 15 production releases.</li>
-        <li>Launched a portfolio analytics dashboard surfacing investment performance and contract lifecycles for HNI and Institutional segments, with automated renewal alerts lifting renewal rates from 60% to 75%.</li>
-        <li>Coordinated with Citibank stakeholders and internal teams, demoing prospect module releases and converting escalations into scoped backlog items, lifting module CSAT from 75% to 90%.</li>
-      </ul>
+      <div class="role">
+        <div class="role-rail">
+          <span class="company">Wipro Technologies<br>(Citibank engagement)<br>Chennai</span>
+          <span class="dates">Oct 2021 — Apr 2024</span>
+        </div>
+        <div class="role-content">
+          <h3>Software Developer</h3>
+          <ul>
+            <li>Built a custom CRM platform for Citibank to automate relationship manager workflows; identified prospect tracking as an upstream gap and owned the module end to end, enabling $1.56M in new account revenue.</li>
+            <li>Authored 10+ feature PRDs and worked through 300+ user stories with Citibank's US-based Product Owner, cutting requirement rework by 30% across 15 production releases.</li>
+            <li>Launched a portfolio analytics dashboard surfacing investment performance and contract lifecycles for HNI and Institutional segments, with automated renewal alerts lifting renewal rates from 60% to 75%.</li>
+            <li>Coordinated with Citibank stakeholders and internal teams, demoing prospect module releases and converting escalations into scoped backlog items, lifting module CSAT from 75% to 90%.</li>
+          </ul>
+        </div>
+      </div>
     </div>
   </section>
 
   <section class="work reveal">
-    <h2>Selected Work</h2>
+    <div class="marker" aria-hidden="true"></div>
+    <div class="inner">
+      <h2>Selected Work</h2>
 
-    <div class="card">
-      <h3>Sambalam — construction labour wage tracker</h3>
-      <p class="summary">An offline-first Android app that replaced a paper notebook for weekly wage settlement on building sites.</p>
+      <div class="card">
+        <h3>Sambalam — construction labour wage tracker</h3>
+        <p class="summary">An offline-first Android app that replaced a paper notebook for weekly wage settlement on building sites.</p>
 
-      <div class="shot-strip">
-        <img src="screenshots/sambalam-3.png" alt="Sambalam department setup screen" loading="lazy">
-        <img src="screenshots/sambalam-5.png" alt="Sambalam tap-based daily headcount entry" loading="lazy">
-        <img src="screenshots/sambalam-4.png" alt="Sambalam weekly wage and advance view" loading="lazy">
-        <img src="screenshots/sambalam-6.png" alt="Sambalam weekly settlement summary" loading="lazy">
+        <div class="marquee">
+          <div class="marquee-track">
+            <div class="shot-frame"><img src="screenshots/sambalam-1.png" alt="Sambalam projects list screen" loading="lazy"></div>
+            <div class="shot-frame"><img src="screenshots/sambalam-2.png" alt="Sambalam Tamil/English language settings" loading="lazy"></div>
+            <div class="shot-frame"><img src="screenshots/sambalam-3.png" alt="Sambalam department setup screen" loading="lazy"></div>
+            <div class="shot-frame"><img src="screenshots/sambalam-4.png" alt="Sambalam weekly wage and advance view" loading="lazy"></div>
+            <div class="shot-frame"><img src="screenshots/sambalam-5.png" alt="Sambalam tap-based daily headcount entry" loading="lazy"></div>
+            <div class="shot-frame"><img src="screenshots/sambalam-6.png" alt="Sambalam weekly settlement summary" loading="lazy"></div>
+            <div class="shot-frame" aria-hidden="true"><img src="screenshots/sambalam-1.png" alt="" loading="lazy"></div>
+            <div class="shot-frame" aria-hidden="true"><img src="screenshots/sambalam-2.png" alt="" loading="lazy"></div>
+            <div class="shot-frame" aria-hidden="true"><img src="screenshots/sambalam-3.png" alt="" loading="lazy"></div>
+            <div class="shot-frame" aria-hidden="true"><img src="screenshots/sambalam-4.png" alt="" loading="lazy"></div>
+            <div class="shot-frame" aria-hidden="true"><img src="screenshots/sambalam-5.png" alt="" loading="lazy"></div>
+            <div class="shot-frame" aria-hidden="true"><img src="screenshots/sambalam-6.png" alt="" loading="lazy"></div>
+          </div>
+        </div>
+
+        <p class="detail">A small-scale building contractor in Tamil Nadu recorded daily labour headcounts and weekly cash settlements by hand, where a miscalculation or a lost page meant paying the wrong amount to a crew. I ran discovery from the notebook itself, established that the underlying problem was outstanding balances rather than expense totals, and shipped a Tamil-first Android app with an English toggle across six sprints: tap-based daily headcount entry, automatic weekly settlement with advance deduction, and per-crew locking so a settled week cannot be altered retrospectively. One constraint drove every decision — the primary user reads no English and operates a smartphone at WhatsApp level — so daily entry requires no typing and a single tap copies the previous working day's crew composition. Built solo end to end: React Native and Expo, local SQLite with no backend so the app functions with no site connectivity, distributed as a direct-install APK with over-the-air updates for remote fixes.</p>
+
+        <div class="tags">
+          <span class="tag">Product discovery</span>
+          <span class="tag">User research</span>
+          <span class="tag">React Native</span>
+          <span class="tag">Expo</span>
+          <span class="tag">SQLite</span>
+          <span class="tag">Offline-first</span>
+          <span class="tag">Vernacular UX</span>
+          <span class="tag">Sole developer</span>
+        </div>
       </div>
 
-      <p class="detail">A small-scale building contractor in Tamil Nadu recorded daily labour headcounts and weekly cash settlements by hand, where a miscalculation or a lost page meant paying the wrong amount to a crew. I ran discovery from the notebook itself, established that the underlying problem was outstanding balances rather than expense totals, and shipped a Tamil-first Android app with an English toggle across six sprints: tap-based daily headcount entry, automatic weekly settlement with advance deduction, and per-crew locking so a settled week cannot be altered retrospectively. One constraint drove every decision — the primary user reads no English and operates a smartphone at WhatsApp level — so daily entry requires no typing and a single tap copies the previous working day's crew composition. Built solo end to end: React Native and Expo, local SQLite with no backend so the app functions with no site connectivity, distributed as a direct-install APK with over-the-air updates for remote fixes.</p>
+      <div class="card">
+        <h3>Prospect management module — Citibank CRM</h3>
+        <p class="summary">A module I proposed after finding the upstream gap, which contributed to a $1.56M account expansion.</p>
 
-      <div class="tags">
-        <span class="tag">Product discovery</span>
-        <span class="tag">User research</span>
-        <span class="tag">React Native</span>
-        <span class="tag">Expo</span>
-        <span class="tag">SQLite</span>
-        <span class="tag">Offline-first</span>
-        <span class="tag">Vernacular UX</span>
-        <span class="tag">Sole developer</span>
+        <div class="metrics">
+          <div class="metric">
+            <div class="metric-figure"><span class="metric-value" data-count-to="1.56" data-decimals="2" data-prefix="$" data-suffix="M">$0.00M</span></div>
+            <p class="metric-caption">New account revenue</p>
+          </div>
+          <div class="metric">
+            <div class="metric-figure"><span class="from">40</span><span class="arrow">→</span><span class="metric-value" data-count-to="80" data-decimals="0">0</span></div>
+            <p class="metric-caption">Accounts per manager</p>
+          </div>
+          <div class="metric">
+            <div class="metric-figure"><span class="from">20s</span><span class="arrow">→</span><span class="metric-value" data-count-to="1" data-decimals="0" data-prefix="&lt;" data-suffix="s">&lt;0s</span></div>
+            <p class="metric-caption">Table load time</p>
+          </div>
+          <div class="metric">
+            <div class="metric-figure"><span class="from">60%</span><span class="arrow">→</span><span class="metric-value" data-count-to="85" data-decimals="0" data-suffix="%">0%</span></div>
+            <p class="metric-caption">Daily manager adoption</p>
+          </div>
+        </div>
+
+        <p class="detail">While building a CRM platform for Citibank at Wipro, I found that prospects were being tracked in spreadsheets before they ever reached the CRM, so data quality was already degraded by the time records arrived. I proposed a standalone prospect management module that would feed the CRM on conversion, and owned it end to end from proposal through launch. Working with the client's US-based Product Owner, I defined the MVP, wrote the requirements, and shipped 15+ high-priority features with a team of 10. Relationship managers were avoiding the module because a single-page table loaded 30,000+ records at once, taking over 20 seconds — I diagnosed this as the primary adoption barrier and redesigned the table to load in pages, cutting load times to under a second and lifting daily usage from 60% to 85%. Stage-transition alerts across pipelines running 13 stages for institutional clients and 21 for HNI doubled portfolio capacity from 40 to 80 accounts per manager. The module's success contributed to Citibank expanding the engagement, worth $1.56M in new account revenue.</p>
+        <div class="tags">
+          <span class="tag">Product ownership</span>
+          <span class="tag">Requirements definition</span>
+          <span class="tag">MVP scoping</span>
+          <span class="tag">UX diagnosis</span>
+          <span class="tag">Stakeholder management</span>
+          <span class="tag">BFSI</span>
+          <span class="tag">CRM</span>
+        </div>
       </div>
-    </div>
 
-    <div class="card">
-      <h3>Prospect management module — Citibank CRM</h3>
-      <p class="summary">A module I proposed after finding the upstream gap, which contributed to a $1.56M account expansion.</p>
-      <p class="detail">While building a CRM platform for Citibank at Wipro, I found that prospects were being tracked in spreadsheets before they ever reached the CRM, so data quality was already degraded by the time records arrived. I proposed a standalone prospect management module that would feed the CRM on conversion, and owned it end to end from proposal through launch. Working with the client's US-based Product Owner, I defined the MVP, wrote the requirements, and shipped 15+ high-priority features with a team of 10. Relationship managers were avoiding the module because a single-page table loaded 30,000+ records at once, taking over 20 seconds — I diagnosed this as the primary adoption barrier and redesigned the table to load in pages, cutting load times to under a second and lifting daily usage from 60% to 85%. Stage-transition alerts across pipelines running 13 stages for institutional clients and 21 for HNI doubled portfolio capacity from 40 to 80 accounts per manager. The module's success contributed to Citibank expanding the engagement, worth $1.56M in new account revenue.</p>
-      <div class="tags">
-        <span class="tag">Product ownership</span>
-        <span class="tag">Requirements definition</span>
-        <span class="tag">MVP scoping</span>
-        <span class="tag">UX diagnosis</span>
-        <span class="tag">Stakeholder management</span>
-        <span class="tag">BFSI</span>
-        <span class="tag">CRM</span>
-      </div>
-    </div>
+      <div class="card">
+        <h3>Analytics-as-a-Service — manufacturing procurement</h3>
+        <p class="summary">Discovery, KPI definition, and a business case that surfaced ₹3.45Cr in procurement savings.</p>
 
-    <div class="card">
-      <h3>Analytics-as-a-Service — manufacturing procurement</h3>
-      <p class="summary">Discovery, KPI definition, and a business case that surfaced ₹3.45Cr in procurement savings.</p>
-      <p class="detail">A manufacturing client had operational data spread across SAP and ERP systems with no consolidated view across plants. I ran discovery with finance, sourcing, and operations to establish what each function actually needed to see, defined 50+ operational KPIs, and built seven Power BI dashboards integrating the underlying data — later used as the reference implementation in an enterprise client pitch. Alongside the delivery, I authored the business case for an Analytics-as-a-Service offering and purchase-order automation, using vendor price analysis to surface ₹3.45Cr in procurement savings and a 5% lead-time breach rate, and modelled time-series demand across ₹46.7Cr of inventory to identify ₹3.1Cr in excess stock.</p>
-      <div class="tags">
-        <span class="tag">Stakeholder discovery</span>
-        <span class="tag">KPI definition</span>
-        <span class="tag">Business case</span>
-        <span class="tag">Power BI</span>
-        <span class="tag">SAP/ERP</span>
-        <span class="tag">Demand forecasting</span>
-        <span class="tag">Procurement analytics</span>
+        <div class="metrics">
+          <div class="metric">
+            <div class="metric-figure"><span class="metric-value" data-count-to="3.45" data-decimals="2" data-prefix="₹" data-suffix="Cr">₹0.00Cr</span></div>
+            <p class="metric-caption">Procurement savings surfaced</p>
+          </div>
+        </div>
+
+        <p class="detail">A manufacturing client had operational data spread across SAP and ERP systems with no consolidated view across plants. I ran discovery with finance, sourcing, and operations to establish what each function actually needed to see, defined 50+ operational KPIs, and built seven Power BI dashboards integrating the underlying data — later used as the reference implementation in an enterprise client pitch. Alongside the delivery, I authored the business case for an Analytics-as-a-Service offering and purchase-order automation, using vendor price analysis to surface ₹3.45Cr in procurement savings and a 5% lead-time breach rate, and modelled time-series demand across ₹46.7Cr of inventory to identify ₹3.1Cr in excess stock.</p>
+        <div class="tags">
+          <span class="tag">Stakeholder discovery</span>
+          <span class="tag">KPI definition</span>
+          <span class="tag">Business case</span>
+          <span class="tag">Power BI</span>
+          <span class="tag">SAP/ERP</span>
+          <span class="tag">Demand forecasting</span>
+          <span class="tag">Procurement analytics</span>
+        </div>
       </div>
     </div>
   </section>
 
   <section class="skills reveal">
-    <h2>Skills</h2>
+    <div class="marker" aria-hidden="true"></div>
+    <div class="inner">
+      <h2>Skills</h2>
 
-    <div class="skill-group">
-      <h4>Product</h4>
-      <div class="pills">
-        <span class="pill">Product discovery</span>
-        <span class="pill">MVP scoping</span>
-        <span class="pill">Requirements definition</span>
-        <span class="pill">Roadmapping</span>
-        <span class="pill">UX diagnosis</span>
-        <span class="pill">Stakeholder management</span>
+      <div class="skill-group">
+        <h4>Product</h4>
+        <div class="pills">
+          <span class="pill">Product discovery</span>
+          <span class="pill">MVP scoping</span>
+          <span class="pill">Requirements definition</span>
+          <span class="pill">Roadmapping</span>
+          <span class="pill">UX diagnosis</span>
+          <span class="pill">Stakeholder management</span>
+        </div>
       </div>
-    </div>
 
-    <div class="skill-group">
-      <h4>Delivery</h4>
-      <div class="pills">
-        <span class="pill">Agile / Scrum</span>
-        <span class="pill">Cross-functional team leadership</span>
-        <span class="pill">Vendor &amp; client coordination</span>
-        <span class="pill">Program delivery</span>
+      <div class="skill-group">
+        <h4>Delivery</h4>
+        <div class="pills">
+          <span class="pill">Agile / Scrum</span>
+          <span class="pill">Cross-functional team leadership</span>
+          <span class="pill">Vendor &amp; client coordination</span>
+          <span class="pill">Program delivery</span>
+        </div>
       </div>
-    </div>
 
-    <div class="skill-group">
-      <h4>Technical</h4>
-      <div class="pills">
-        <span class="pill">React Native</span>
-        <span class="pill">SQL</span>
-        <span class="pill">System design</span>
-        <span class="pill">API integration</span>
-        <span class="pill">SDLC</span>
+      <div class="skill-group">
+        <h4>Technical</h4>
+        <div class="pills">
+          <span class="pill">React Native</span>
+          <span class="pill">SQL</span>
+          <span class="pill">System design</span>
+          <span class="pill">API integration</span>
+          <span class="pill">SDLC</span>
+        </div>
       </div>
-    </div>
 
-    <div class="skill-group">
-      <h4>Data</h4>
-      <div class="pills">
-        <span class="pill">Power BI</span>
-        <span class="pill">Financial modelling</span>
-        <span class="pill">KPI design</span>
-        <span class="pill">Demand forecasting</span>
+      <div class="skill-group">
+        <h4>Data</h4>
+        <div class="pills">
+          <span class="pill">Power BI</span>
+          <span class="pill">Financial modelling</span>
+          <span class="pill">KPI design</span>
+          <span class="pill">Demand forecasting</span>
+        </div>
       </div>
-    </div>
 
-    <div class="skill-group">
-      <h4>Domain</h4>
-      <div class="pills">
-        <span class="pill">BFSI</span>
-        <span class="pill">Fintech</span>
-        <span class="pill">CRM platforms</span>
-        <span class="pill">Procurement &amp; supply chain</span>
+      <div class="skill-group">
+        <h4>Domain</h4>
+        <div class="pills">
+          <span class="pill">BFSI</span>
+          <span class="pill">Fintech</span>
+          <span class="pill">CRM platforms</span>
+          <span class="pill">Procurement &amp; supply chain</span>
+        </div>
       </div>
     </div>
   </section>
 
   <section class="education reveal">
-    <h2>Education &amp; Certifications</h2>
+    <div class="marker" aria-hidden="true"></div>
+    <div class="inner">
+      <h2>Education &amp; Certifications</h2>
 
-    <div class="edu-item">
-      <h3>MBA, Indian Institute of Management Bangalore</h3>
-      <p class="meta">2026</p>
-    </div>
+      <div class="edu-item">
+        <h3>MBA, Indian Institute of Management Bangalore</h3>
+        <p class="meta">2026</p>
+      </div>
 
-    <div class="edu-item">
-      <h3>BE, Computer Science — CEG, Anna University</h3>
-      <p class="meta">2021</p>
-    </div>
+      <div class="edu-item">
+        <h3>BE, Computer Science — CEG, Anna University</h3>
+        <p class="meta">2021</p>
+      </div>
 
-    <div class="edu-item">
-      <h3>CFA Level I Cleared</h3>
-      <p class="meta">2025</p>
+      <div class="edu-item">
+        <h3>CFA Level I Cleared</h3>
+        <p class="meta">2025</p>
+      </div>
     </div>
   </section>
-
-</main>
+</div>
 
 <footer>
   Gowthamraj A · Bengaluru, India
@@ -527,19 +734,92 @@
 
 <script>
   (function () {
-    var items = document.querySelectorAll('.reveal');
-    if (!('IntersectionObserver' in window)) {
-      items.forEach(function (el) { el.classList.add('visible'); });
-      return;
+    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    /* Reveal on scroll */
+    var reveals = document.querySelectorAll('.reveal');
+    if (reduceMotion || !('IntersectionObserver' in window)) {
+      reveals.forEach(function (el) { el.classList.add('visible'); });
+    } else {
+      var ro = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            ro.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+      reveals.forEach(function (el) { ro.observe(el); });
     }
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          io.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.1 });
-    items.forEach(function (el) { io.observe(el); });
+
+    /* Spine fill draws with scroll progress through .content */
+    var content = document.querySelector('.content');
+    var spineFill = document.querySelector('.spine-fill');
+    if (content && spineFill && !reduceMotion) {
+      var ticking = false;
+      function updateSpine() {
+        var rect = content.getBoundingClientRect();
+        var contentTop = rect.top + window.scrollY;
+        var contentHeight = content.offsetHeight;
+        var refY = window.scrollY + window.innerHeight * 0.5;
+        var progress = (refY - contentTop) / contentHeight;
+        progress = Math.max(0, Math.min(1, progress));
+        spineFill.style.height = (progress * 100) + '%';
+        ticking = false;
+      }
+      window.addEventListener('scroll', function () {
+        if (!ticking) { window.requestAnimationFrame(updateSpine); ticking = true; }
+      }, { passive: true });
+      window.addEventListener('resize', updateSpine);
+      updateSpine();
+    }
+
+    /* Active spine marker per section */
+    if ('IntersectionObserver' in window) {
+      var sections = document.querySelectorAll('.content > section');
+      var mo = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          var marker = entry.target.querySelector('.marker');
+          if (marker) marker.classList.toggle('active', entry.isIntersecting);
+        });
+      }, { rootMargin: '-45% 0px -45% 0px' });
+      sections.forEach(function (sec) { mo.observe(sec); });
+    }
+
+    /* Count-up metric figures */
+    function formatCount(el, value) {
+      var decimals = parseInt(el.getAttribute('data-decimals') || '0', 10);
+      var prefix = el.getAttribute('data-prefix') || '';
+      var suffix = el.getAttribute('data-suffix') || '';
+      return prefix + value.toFixed(decimals) + suffix;
+    }
+    function runCount(el) {
+      var target = parseFloat(el.getAttribute('data-count-to'));
+      if (reduceMotion) { el.textContent = formatCount(el, target); return; }
+      var duration = 1100;
+      var start = null;
+      function step(ts) {
+        if (start === null) start = ts;
+        var p = Math.min(1, (ts - start) / duration);
+        var eased = 1 - Math.pow(1 - p, 3);
+        el.textContent = formatCount(el, target * eased);
+        if (p < 1) window.requestAnimationFrame(step);
+      }
+      window.requestAnimationFrame(step);
+    }
+    var counters = document.querySelectorAll('[data-count-to]');
+    if (reduceMotion || !('IntersectionObserver' in window)) {
+      counters.forEach(function (el) { runCount(el); });
+    } else {
+      var co = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            runCount(entry.target);
+            co.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.6 });
+      counters.forEach(function (el) { co.observe(el); });
+    }
   })();
 </script>
